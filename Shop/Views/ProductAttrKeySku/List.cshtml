@@ -1,0 +1,407 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <!-- 提示Toast -->
+    <link href="/Statics/adminlte/plugins/toastr/toastr.min.css" rel="stylesheet" />
+</head>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4>商品规格列表</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">首页</a></li>
+                    <li class="breadcrumb-item active">商品规格</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="alertAddGuiGeModal()" data-toggle="modal" data-target="#modal-default">
+                        添加
+                    </button>
+
+                    <a class="btn btn-sm btn-primary" href="/ProductCategory/list">返回</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="table" style="width:100%" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th>序号</th>
+                                        <th>属性名称</th>
+                                        <th>录入方式</th>
+                                        <th>排序号</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddGuiGe-modal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal-title" class="modal-title"><strong>添加规格</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form class="form-horizontal">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="AttrName" class="col-sm-3 col-form-label">规格名称：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="AttrName" name="AttrName" placeholder="请输入属性名称">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-3 col-form-label">录入方式：</label>
+                            <div class="col-sm-9" id="EnterType">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radioPrimary1" name="r1" checked="" value="1">
+                                            <label for="radioPrimary1" style="font-weight:normal;">
+                                                手动录入
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radioPrimary2" name="r1" checked="" value="2">
+                                            <label for="radioPrimary2" style="font-weight:normal;">
+                                                下拉选择
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-3 col-form-label">规格值列表：</label>
+                            <div class="col-sm-9" id="attrValues">
+                                <button type="button" id="alertAddValue" class="btn btn-xs btn-primary" style="margin-bottom:16px" value="">添加属性值</button>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="OrderNum" class="col-sm-3 col-form-label">排序号：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="OrderNum" name="OrderNum" placeholder="请输入排序号">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                                <button type="button" class="btn btn-primary" id="ok">提交</button>
+                                <button type="button" class="btn btn-default">重置</button>
+                            </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+
+                </form>
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">提示框</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>确定要删除吗？</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" onclick="del()">是</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</section>
+
+@section js{
+    <script>
+
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+        var opreateFlag = 1;    //1添加   2修改
+        var editId;
+        var delID = null
+
+
+        function del() {
+            if (!delID) {
+                return;
+            }
+        //发起ajax请求
+        $.ajax({
+            type: "POST",
+            url: "/ProductAttrKeySku/Delete",
+            cache: false,//禁用缓存
+            data: { id: delID },//传入组装的参数
+            dataType: "json",
+            success: function (result) {
+                if (result.state) {
+
+                    toastr.success("删除成功")
+                    $("#del-modal").modal("hide")//模态窗口关掉
+                    //刷新dataTables
+                    $('#table').DataTable().ajax.reload();
+                }
+
+            }
+        });
+
+        }
+
+        //点击添加按钮显示弹出框
+        function alertAddGuiGeModal() {
+            opreateFlag=1
+
+            $("#AddGuiGe-modal").modal()
+            //修改标题
+            $("#modal-title").text("规格添加")
+
+            $("#AttrName").val("")
+            $("#OrderNum").val("")
+            $("input[name='r1'][value='1']").prop("checked", "checked");
+            $("#attrValues div:gt(0)").remove();
+
+        }
+        //点击编辑按钮显示弹出框
+        function alertUpdateModal(id) {
+            opreateFlag = 2
+            editId = id;
+            //显示弹出框
+            $("#AddGuiGe-modal").modal()
+            //修改标题。jquery获取（设置）div，span，和h[1-6]标签的内容用text方法，获取（设置）input，select标签的内容用val方法
+            $("#modal-title").text("规格修改")
+            //从后台获取数据并显示出来
+            //发送ajax请求
+            $.ajax({
+                // 请求的地址
+                url: "/ProductAttrKeySku/GetOne",
+                // 发起请求的方式
+                type: "GET",
+                cache: false,
+                //期望服务器返回的数据类型
+                dataType: "json",
+                //向服务端发送的数据
+                data: { id: id },//将js对象序列化为json字符串
+                //指定数据的类型为json
+                success: function (result) {
+                    $("#AttrName").val(result.attrKey.AttrName)
+                    $("#OrderNum").val(result.attrKey.OrderNum)
+                    $("input[name='r1'][value=" + result.attrKey.EnterType + "]").prop("checked", "checked");
+                    $("#attrValues div:gt(0)").remove();
+
+                    result.attrValue.map(function (v) {
+                        var html = "<div class=\"input-group mb-3\" >" +
+                            "<div><input type = \"text\" class=\"form-control\" value=\"" + v.AttrValue + "\"></div>" +
+                            "<div onclick =\"delList(this)\" class=\"input-group-append\">" +
+                            "<span class=\"input-group-text\">删除</span>" +
+                            "</div >" +
+                            "</div > ";
+
+                        $("#attrValues").append(html);
+                    })
+                }
+            })
+
+        }
+        function alertDelModal(id) {
+            delID = id;
+            $("#del-modal").modal()
+
+        }
+        //点击删除删除整行
+        function delList(obj) {
+            $(obj).parent().remove();
+        }
+        $(function () {
+            //点击一次添加按钮 增加一个div
+            $(document).ready(function () {
+                $("#alertAddValue").click(function () {
+                    var html = '<div class="input-group mb-3" ><div><input type = "text" class="form-control" ></div><div onclick="delList(this)" class="input-group-append"><span class="input-group-text">删除</span></div></div >';
+
+                    $("#attrValues").append(html);
+                });
+            });
+            $("#ok").click(function () {
+                //收集数据
+                var AttrName = $("#AttrName").val()
+                var OrderNum = $("#OrderNum").val()
+                var EnterType = $("input[name='r1']:checked").val()//获取radio的值
+                //获取属性值
+                var attrValues = []
+
+                $("#attrValues input").each(function () {
+                    attrValues.push($(this).val())
+
+                })
+                var ProductCategoryID = $.getUrlParam('id')
+                //封装数据
+                var data = {
+                    AttrName: AttrName,
+                    OrderNum: OrderNum,
+                    EnterType: EnterType,
+                    AttrValues: attrValues,
+                    ProductCategoryID: ProductCategoryID
+                }
+
+                var url = "/ProductAttrKeySku/Add"
+                var msg = "添加成功";
+                if (opreateFlag == 2) {
+                    data.ID = editId;
+                    msg = "修改成功";
+                    url = "/ProductAttrKeySku/Edit"
+                }
+
+                //发送ajax请求
+                $.ajax({
+                    // 请求的地址
+                    url: url,
+                    // 发起请求的方式
+                    type: "POST",
+                    //期望服务器返回的数据类型
+                    dataType: "json",
+                    //向服务端发送的数据
+                    data: JSON.stringify(data),//将js对象序列化为json字符串
+                    //指定数据的类型为json
+                    contentType: "application/json;charset=utf-8",
+                    // 当请求成功之后的回调函数，一般在接收服务端返回的数据
+
+                    success: function (result) {
+                        // result参数代表服务端返回的数据
+                        if (result.state) {
+
+                            toastr.success(msg);
+                            document.getElementById("for").reset();
+                        } else {
+                            toastr.error(result.msg)
+                        }
+                    },
+                    error: function (result) {
+                        // result 参数代表服务端返回的数据
+                        toastr.error("添加失败")
+                    }
+                })
+
+            })
+            //$("#example1").DataTable();
+            $('#table').DataTable({
+                "paging": false,//禁止分页
+                "lengthChange": false,//不显示更改每页大小的下拉框
+                "searching": false,//不显示搜索框
+                "ordering": false,//禁止排序
+                "info": false,//不显示备注信息
+                //"autoWidth": false,
+                "autoWidth": true,//宽度自适应
+                "processing": true,//开启加载等待
+                "language": {
+
+                    "processing": "请求数据中...",//加载数据时的提示信息
+                    "zeroRecords": "没有数据",//无数据时的提示
+                },
+                "serverSide": true,//开启服务端模式（从后台获取）
+
+                "ajax": function (data, callback, settings) {
+                    //封装请求参数
+                    var param = {};
+                    //param.pageSize = data.length;//页面显示记录条数，在页面显示每页多少项的时候
+                    //param.pageNum = (data.start / data.length) + 1;//显示页码
+                    param.draw = data.draw;//为了保证请求一致性，服务端直接返回就可以，不需要更改
+                    param.categoryId = $.getUrlParam('id');
+                    //ajax请求数据
+                    $.ajax({
+                        type: "POST",
+                        url: "/ProductAttrKeySku/GetByCatecoryID",
+                        cache: false,//禁用缓存
+                        data: param,//传入组装的参数
+                        dataType: "json",
+                        success: function (result) {
+                            setTimeout(function () {
+                                callback(result);//渲染数据
+                            }, 500);//请求时长500
+                        }
+                    });
+                },
+                //设置数据映射
+                columns: [
+
+                    { "data": "ID" },
+                    { "data": "AttrName" },
+                    //{ "data": "EnterType" },
+                    {
+                        "data": function (data) {
+                            if (data.EnterType == "1") {
+                                return "手动录入"
+                            }
+                            else {
+                                return "下拉选择"
+                            }
+                        }
+                    },
+                    { "data": "OrderNum" },
+
+                    {
+                        "data": function (data) {
+                            var html = "<button  class=\"btn btn-sm btn-primary\" onclick=\"alertUpdateModal(" + data.ID + ")\">编辑</button>";
+
+                            html += "&nbsp;&nbsp;"
+                            html += "<a href=\"#\" class=\"btn btn-sm btn-danger\" onclick=\"alertDelModal(" + data.ID + ")\">删除</a>";
+                            return html;
+                        }
+                    }
+                ]
+            });
+        });
+
+
+    </script>
+}
+
