@@ -183,7 +183,7 @@
                     { "data": "Stock" },
                     {
                         "data": function (data) {
-                            var html = "<a href=\"/ProductCategory/Update/" + data.ID + " \" class=\"btn btn-sm btn-primary\">编辑</a>";
+                            var html = "<a href=\"/Product/Update?id=" + data.ID + " \" class=\"btn btn-sm btn-primary\">编辑</a>";
 
                             html += "&nbsp;&nbsp;"
                             html += "<a href=\"#\" class=\"btn btn-sm btn-danger\" onclick=\"alertDelModal(" + data.ID + ")\">删除</a>";
