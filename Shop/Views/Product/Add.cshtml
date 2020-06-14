@@ -10,83 +10,6 @@
     <link href="/Statics/adminlte/plugins/wizard/css/jquery.steps.css" rel="stylesheet" />
 }
 
-@*<section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h4>商品添加</h4>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">首页</a></li>
-                        <li class="breadcrumb-item active">商品管理</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-info">
-                    <!-- /.card-header -->
-                    <!-- form start -->
-
-                    <div class="card-body">
-                        <div>
-                            一级分类：
-                            <select id="category1" class="form-control select2 select2-hidden-accessible" style="width:200px;"></select>
-                        </div>
-                        <div>
-                            二级分类：
-                            <select id="category2" class="form-control select2 select2-hidden-accessible" style="width:200px;"></select>
-                        </div>
-                        <div>
-                            三级分类：
-                            <select id="category3" class="form-control select2 select2-hidden-accessible" style="width:200px;"></select>
-                        </div>
-                        <div id="skus">
-
-                        </div>
-
-                        <div>
-                            <table id="sku-table" border="1">
-                                <thead>
-                                    <tr></tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                        <div style="margin:8px">
-                            <button class="btn btn-primary" onclick="createSkuCollections()">刷新列表</button>
-                            <button class="btn btn-primary" onclick="SamePrice()">同步价格</button>
-                            <button class="btn btn-primary" onclick="SameInventory()">同步库存</button>
-                        </div>
-                        <div id="attr_msg">
-
-                        </div>
-                        <div>
-                            <input type="file" id="Img" multiple />
-
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" id="upload">上传</button>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">提交</button>
-                        <a href="/ProductCategory/List" class="btn btn-default float-right">返回</a>
-                    </div>
-                    <!-- /.card-footer -->
-
-                </div>
-                <!-- /.card -->
-            </div>
-        </div>
-    </section>*@
 
 
 <div id="wizard" style="padding-top:10px;">
@@ -465,6 +388,11 @@
                     productObj.ProductSlideImgs = JSON.stringify(ProductSlideImgs);
                     productObj.ProductDetail = JSON.stringify(ProductDetail);
                     productObj.ProductCategoryID = ProductCategoryID;
+                    productObj.ProductCategoryPath = JSON.stringify([
+                        $("#category1").val(),
+                        $("#category2").val(),
+                        $("#category3").val()
+                    ])
                     product.Product = productObj;
                     skuDatas = []
                     $("#sku-table tbody tr").each(function (index) {

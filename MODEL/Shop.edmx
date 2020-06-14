@@ -20,6 +20,7 @@
           <Property Name="ProductCategoryID" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Stock" Type="int" />
+          <Property Name="ProductCategoryPath" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ProductAttr">
           <Key>
@@ -118,6 +119,7 @@
           <Property Name="ProductCategoryID" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Stock" Type="Int32" />
+          <Property Name="ProductCategoryPath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProductAttrKey">
           <Key>
@@ -179,6 +181,7 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="ShopModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductCategoryPath" ColumnName="ProductCategoryPath" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />

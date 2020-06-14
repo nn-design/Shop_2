@@ -271,6 +271,7 @@
                 type: "GET",
                 data: { pid: pid },
                 dataType: "json",
+                async: false,//改成同步请求，不加的时候默认为异步请求
                 success: function (data) {
                     $select.empty()
                     $select.append("<option value=\"\">请选择</option>")
@@ -338,6 +339,7 @@
                 type: "GET",
                 data: { categoryID: id },
                 dataType: "json",
+                async: false,//默认为异步请求，添加上后为同步请求
                 success: function (data) {
                     console.log(data)
                     data.map(function (v) {
@@ -379,12 +381,14 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data)
+
                     //1.初始化商品基本信息
                     var productObj = data.product
 
                     $("#ProductTitle").val(productObj.ProductTitle );
                     $("#Price").val(productObj.Price );
                     $("#Stock").val(productObj.Stock);
+
                     //2.初始化商品主图，轮播图，详情
 
                     //eval()：接受一个字符串类型参数，可以将字符串转换成数组或对象，eval("()")
@@ -443,6 +447,72 @@
                         // 设置预览图片
                         initialPreview: ProductDetailTag
                     });
+
+                    //3.初始化商品分类
+
+                    var productCategoryPath = eval("(" + productObj.ProductCategoryPath + ")")
+                    $("#category1").val(productCategoryPath[0])//设置一级分类
+                    $("#category1").trigger("change");//触发一级分类下拉框change事件
+
+                    $("#category2").val(productCategoryPath[1])//设置二级分类
+                    $("#category2").trigger("change");//触发二级分类下拉框change事件
+
+                    $("#category3").val(productCategoryPath[2])//设置三级分类
+                    $("#category3").trigger("change");//触发三级分类下拉框change事件
+
+                    //4.初始化sku表格信息
+
+                    //生成表头
+                    $("#sku-table thead tr").empty()
+                    eval("(" + data.skus[0].ProductSku1+")").map(function (v) {
+                        $("#sku-table thead tr").append("<th>" + v.name + "</th>")
+                    })
+                    $("#sku-table thead tr").append("<th>价格</th>")
+                    $("#sku-table thead tr").append("<th>库存</th>")
+                    $("#sku-table thead tr").append("<th>SKU编号</th>")
+
+                    //生成数据行
+                    $("#sku-table tbody").empty()
+                    data.skus.map(function (v) {
+                        var html = "<tr>"
+                        eval("(" + v.ProductSku1 + ")").map(function (_v) {
+                            html += "<td>" + _v.value + "</td>"
+                        })
+                        html += "<td><input type=\"text\" class=\"Price form-control\" value=\"" + v.Price+"\" /></td>"
+                        html += "<td><input type=\"text\" class=\"Stock form-control\" value=\"" + v.Stock +"\" /></td>"
+                        html += "<td><input type=\"text\"  class=\"SkuNum form-control\" value=\"" + v.SkuNum +"\"/></td>"
+                        html += "</tr>"
+                        $("#sku-table tbody").append(html)
+                    })
+
+                    //5.初始化属性信息
+
+                    $("#attr_msg div.attr").each(function () {
+                        var attrName = $(this).find("div.attr-name").text()//获取标签值用text()，文本值用val()
+                        var attrValue = null;
+                        data.attrs.find(function (v) {
+                            var attr = eval("(" + v.ProductAttrs + ")")
+                            if (attr.AttrName == attrName) {
+                                attrValue = attr.AttrValue
+                                return true
+                            }
+                        })
+                        if (attrValue != null) {
+                            var EnterType = $(this).attr("enter-type")//attr()是获取自定义属性的值
+
+                            if (EnterType == "1") {
+
+                                $(this).find("input").val(attrValue)
+                            }
+                            else {
+
+                                $(this).find("select").val(attrValue)
+                            }
+
+                        }
+                        
+                    })
+
                 }
             })
         }
