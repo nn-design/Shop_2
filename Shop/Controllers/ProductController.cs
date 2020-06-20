@@ -55,17 +55,17 @@ namespace Shop.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public ActionResult Update(ProductVModel vModel)
-        //{
-            
-        //    Product product = vModel.Product;
-        //    List<ProductSku> skuList = vModel.Skus;
-        //    List<ProductAttr> attrList = vModel.Attrs;
+        [HttpPost]
+        public ActionResult Update(ProductVModel vModel)
+        {
 
-        //    Bll.Update(product, skuList, attrList);
-        //    return Json(new { state = true });
-        //}
+            Product product = vModel.Product;
+            List<ProductSku> skuList = vModel.Skus;
+            List<ProductAttr> attrList = vModel.Attrs;
+
+            Bll.Update(product, skuList, attrList);
+            return Json(new { state = true });
+        }
 
         [HttpGet]
         public virtual ActionResult GetOne(int id)

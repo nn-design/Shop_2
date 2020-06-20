@@ -596,6 +596,7 @@
                     var product = {}
                     var productObj = {}
 
+                    productObj.ID = $.getUrlParam("id")
                     productObj.ProductTitle = $("#ProductTitle").val();
                     productObj.Price = $("#Price").val();
                     productObj.Stock = $("#Stock").val();
@@ -605,8 +606,14 @@
                     productObj.ProductSlideImgs = JSON.stringify(ProductSlideImgs);
                     productObj.ProductDetail = JSON.stringify(ProductDetail);
                     productObj.ProductCategoryID = ProductCategoryID;
+                    productObj.ProductCategoryPath = JSON.stringify([
 
-
+                        $("#category1").val(),
+                        $("#category2").val(),
+                        $("#category3").val()
+                    ])
+                    productObj.ProductSkuValues = JSON.stringify(skuArrays)
+                    
                     product.Product = productObj;
                     skuDatas = []
                     $("#sku-table tbody tr").each(function (index) {
@@ -642,35 +649,35 @@
                     product.Attrs = attrDatas
                     console.log(product)
 
-                    //$.ajax({
+                    $.ajax({
 
-                    //    //指定请求地址
-                    //    url: "/Product/Update",
-                    //    //指定请求方式：GET、POST
-                    //    type: "POST",
-                    //    //期望服务端返回的数据格式(在回调函数中会自动将json串转化成js对象)
-                    //    dataType: "json",
-                    //    //向服务端发送的数据
-                    //    data: JSON.stringify(product),//将js对象序列化为json字符串
-                    //    contentType: "application/json;charset=utf-8",//指定数据的类型为json
-                    //    //当请求成功之后的回调函数，一般在接收服务端返回的数据
-                    //    // {"State":true} (自动将json串转化成js对象，{State:true})
-                    //    success: function (result) {//result参数代表服务端返回的数据
-                    //        console.log(result)
-                    //        if (result.state) {
+                        //指定请求地址
+                        url: "/Product/Update",
+                        //指定请求方式：GET、POST
+                        type: "POST",
+                        //期望服务端返回的数据格式(在回调函数中会自动将json串转化成js对象)
+                        dataType: "json",
+                        //向服务端发送的数据
+                        data: JSON.stringify(product),//将js对象序列化为json字符串
+                        contentType: "application/json;charset=utf-8",//指定数据的类型为json
+                        //当请求成功之后的回调函数，一般在接收服务端返回的数据
+                        // {"State":true} (自动将json串转化成js对象，{State:true})
+                        success: function (result) {//result参数代表服务端返回的数据
+                            console.log(result)
+                            if (result.state) {
 
-                    //            toastr.success("修改成功")
-                    //            //document.getElementById("form").reset();
-                    //        } else {
+                                toastr.success("修改成功")
+                                //document.getElementById("form").reset();
+                            } else {
 
-                    //            toastr.error("修改失败")
-                    //        }
-                    //    },
-                    //    //当请求失败之后的回调函数
-                    //    error: function (result) {//result参数代表服务端返回的数据
-                    //        toastr.error("修改失败")
-                    //    }
-                    //})
+                                toastr.error("修改失败")
+                            }
+                        },
+                        //当请求失败之后的回调函数
+                        error: function (result) {//result参数代表服务端返回的数据
+                            toastr.error("修改失败")
+                        }
+                    })
                 }
 
             })

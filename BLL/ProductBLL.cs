@@ -66,11 +66,8 @@ namespace BLL
         public int Update(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)
         {
             dal.Update(product);
-            //foreach (var sku in skuList)
-            //{
-            //    sku.ProductID = product.ID;
-            //    skuDAL.DeLete(sku);
-            //}
+            SaveChange();
+            //2.修改sku表
             var skus = skuDAL.Search(x => x.ProductID == product.ID);
             foreach (var sku in skus)
             {
@@ -81,13 +78,8 @@ namespace BLL
                 sku.ProductID = product.ID;
                 skuDAL.Add(sku);
             }
-
-            //foreach (var attr in attrList)
-            //{
-            //    attr.ProuductID = product.ID;
-            //    attrDAL.DeLete(attr);
-            //}
-            //2.删除productAttr表(先查后删除)
+            
+            //3.修改attr表
             var attrs = attrDAL.Search(x => x.ProuductID == product.ID);
             foreach (var attr in attrs)
             {
@@ -98,20 +90,8 @@ namespace BLL
                 attr.ProuductID = product.ID;
                 attrDAL.Add(attr);
             }
-            //修改，分两步，首先是删除所有的数据，再重新添加
-            //IProductSkuDAL productSkuDal = new ProductSkuDAL();
-            //var SkuList = productSkuDal.GetProductID(product.ID);
-            //foreach (var sku in SkuList)
-            //{
-            //    productSkuDal.DeLete(sku);//对ProductAttrKey表执行delete语句
-            //}
-            //foreach (var item in attrValues)
-            //{
-            //    attrValueDal.Add(item);//对ProductAttrKey表执行insert语句
-            //}
-
-
-            return SaveChange();
+            int result = SaveChange();
+            return result;
         }
     }
 }
