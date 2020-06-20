@@ -26,5 +26,6 @@ namespace MODEL
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Stock { get; set; }
         public string ProductCategoryPath { get; set; }
+        public string ProductSkuValues { get; set; }
     }
 }

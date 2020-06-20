@@ -47,10 +47,12 @@ namespace Shop.Controllers
                 dt.ToString("yyyyMMddHHmmssfffff");
                 //获取随机数
                 Random random = new Random();
-                int randowNum = random.Next(10000, 99999);
+                int randowNum = random.Next(0, 999999);
                 //获取文件后缀名
                 string extension = Path.GetExtension(file.FileName);
-                string newFileName = dt.ToString("yyyyMMddHHmmssfffff") + randowNum.ToString() + extension;
+                //Guid（全球统一标识符）理论上可以产生全宇宙唯一的值
+                // Guid.NewGuid().ToString("N")
+                string newFileName = Guid.NewGuid().ToString("N")+ randowNum.ToString() + extension;
 
                 //3.将图片保存到服务器
                 //F:\Asp.net\Shop\All Shop\shop\实现ajax的添加\Shop\Shop\CategoryImages  :绝对路径

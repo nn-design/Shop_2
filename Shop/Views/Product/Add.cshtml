@@ -389,10 +389,13 @@
                     productObj.ProductDetail = JSON.stringify(ProductDetail);
                     productObj.ProductCategoryID = ProductCategoryID;
                     productObj.ProductCategoryPath = JSON.stringify([
+
                         $("#category1").val(),
                         $("#category2").val(),
                         $("#category3").val()
                     ])
+                    productObj.ProductSkuValues = JSON.stringify(skuArrays)
+
                     product.Product = productObj;
                     skuDatas = []
                     $("#sku-table tbody tr").each(function (index) {
