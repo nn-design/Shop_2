@@ -10,5 +10,9 @@ namespace DAL
 {
     public class ProductAttrDAL : BaseDAL<ProductAttr>, IProductAttrDAL
     {
+        DbContextTransaction IBaseDAL<ProductAttr>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

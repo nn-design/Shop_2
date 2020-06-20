@@ -73,5 +73,9 @@ namespace BLL
             return result;
         }
 
+        IBLL.DbContextTransaction IBaseBLL<ProductAttrKey>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

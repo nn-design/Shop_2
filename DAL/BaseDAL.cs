@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using IDAL;
 using MODEL;
 
+
 namespace DAL
 {
     // where T : class是对泛型T做了一个约束，必须是class,new()必须具有无参构造函数
@@ -71,6 +72,15 @@ namespace DAL
         public int SaveChange()
         {
             return entities.SaveChanges();//事务提交
+        }
+        /// <summary>
+        /// 开启一个事务
+        /// </summary>
+        /// <returns></returns>
+        public System.Data.Entity.DbContextTransaction BeginTran()
+        {
+            var tran = entities.Database.BeginTransaction();
+            return tran;
         }
         
     }

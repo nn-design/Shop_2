@@ -23,6 +23,9 @@ namespace BLL
             return dal.GetSub(id);
         }
 
-       
+        IBLL.DbContextTransaction IBaseBLL<ProductCategory>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

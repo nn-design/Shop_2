@@ -16,22 +16,36 @@ namespace BLL
         IProductAttrDAL attrDAL = new ProductAttrDAL();
         public  int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)
         {
-            //1.插入商品表（product表）
-            dal.Add(product);
-            SaveChange();
-            //2.插入productsku表
-            foreach (var sku in skuList)
+            int result = 0;
+            var tran = dal.BeginTran();
+            try
             {
-                sku.ProductID = product.ID;
-                skuDAL.Add(sku);
+                //1.插入商品表（product表）
+                dal.Add(product);
+                result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
+
+                //2.插入productsku表
+                foreach (var sku in skuList)
+                {
+                    sku.ProductID = product.ID;
+                    skuDAL.Add(sku);
+                }
+                //2.插入productAttr表
+                foreach (var attr in attrList)
+                {
+                    attr.ProuductID = product.ID;
+                    attrDAL.Add(attr);
+                }
+                result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
+                tran.Commit();//总提交
             }
-            //2.插入productAttr表
-            foreach (var attr in attrList)
+            catch (Exception)
             {
-                attr.ProuductID = product.ID;
-                attrDAL.Add(attr);
+
+                tran.Rollback();
             }
-            return SaveChange();
+            
+            return result;
         }
         public override int DeLete(int id)
         {
@@ -92,6 +106,11 @@ namespace BLL
             }
             int result = SaveChange();
             return result;
+        }
+
+        IBLL.DbContextTransaction IBaseBLL<Product>.BeginTran()
+        {
+            throw new NotImplementedException();
         }
     }
 }

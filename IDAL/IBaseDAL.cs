@@ -60,5 +60,6 @@ namespace IDAL
         /// <returns></returns>
         int GetCount(Func<T, bool> where);
         int SaveChange();
+        DbContextTransaction BeginTran();//开启一个事务
     }
 }

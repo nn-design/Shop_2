@@ -25,5 +25,7 @@ namespace IBLL
         List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where);
         int GetCount(Func<T, bool> where);
         int SaveChange();
+        DbContextTransaction BeginTran();//开启一个事务
     }
+    
 }

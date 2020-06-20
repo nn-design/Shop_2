@@ -16,6 +16,10 @@ namespace BLL
         {
             return dal.GetAllByAttrKeyID(attrKeyID);
         }
-        
+
+        IBLL.DbContextTransaction IBaseBLL<ProductAttrValue>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

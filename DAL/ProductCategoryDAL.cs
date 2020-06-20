@@ -54,5 +54,10 @@ namespace DAL
             entityEntry.Property("CreateTime").IsModified = false;//时间不变不更新
             
         }
+
+        IDAL.DbContextTransaction IBaseDAL<ProductCategory>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

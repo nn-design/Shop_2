@@ -32,7 +32,12 @@ namespace DAL
             return entities.ProductAttrKey.Where(x => x.ProductCategoryID == cateroryId).ToList();
         }
 
-       
+        DbContextTransaction IBaseDAL<ProductAttrKey>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
+
+
 
 
         //public ProductAttrKey GetOne(int id)

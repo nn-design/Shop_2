@@ -67,5 +67,9 @@ namespace BLL
         {
             return dal.SaveChange();
         }
+        public DbContextTransaction BeginTran()
+        {
+            return dal.BeginTran();//开启一个事务
+        }
     }
 }

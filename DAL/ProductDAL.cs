@@ -8,7 +8,11 @@ using IDAL;
 
 namespace DAL
 {
-    public class ProductDAL:BaseDAL<Product>,IProductDAL
+    public class ProductDAL : BaseDAL<Product>, IProductDAL
     {
+        DbContextTransaction IBaseDAL<Product>.BeginTran()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
