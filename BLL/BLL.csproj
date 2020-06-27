@@ -46,6 +46,7 @@
     <Compile Include="ProductAttrKeyBLL.cs" />
     <Compile Include="ProductAttrValueBLL.cs" />
     <Compile Include="ProductBLL.cs" />
+    <Compile Include="ProductBrandBLL.cs" />
     <Compile Include="ProductCategoryBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

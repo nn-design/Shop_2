@@ -1,0 +1,221 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4>商品品牌列表</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">首页</a></li>
+                    <li class="breadcrumb-item active">品牌展示</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <a class="btn btn-sm btn-primary" href="/ProductBrand/add">添加品牌</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="table" style="width:100%" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th>编号</th>
+                                        <th>品牌名称</th>
+                                        <th>品牌首字母</th>
+                                        <th>排序</th>
+                                        <th>品牌制造商</th>
+                                        <th>是否显示</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">提示框</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>确定要删除吗？</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" onclick="del()">是</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</section>
+
+@section js{
+    <script>
+        var delID = null
+
+        function del() {
+            if (!delID) {
+                return;
+            }
+            //发起ajax请求
+            $.ajax({
+                type: "POST",
+                url: "/ProductBrand/Delete",
+                cache: false,//禁用缓存
+                data: { id: delID },//传入组装的参数
+                dataType: "json",
+                success: function (result) {
+                    if (result.state) {
+
+                        toastr.success("删除成功")
+                        $("#del-modal").modal("hide")//模态窗口关掉
+                        //刷新dataTables
+                        $('#table').DataTable().ajax.reload();
+                    }
+
+                }
+            });
+
+        }
+        function alertDelModal(id) {
+            delID = id;
+            $("#del-modal").modal()
+
+        }
+        $(function () {
+            //$("#example1").DataTable();
+            $('#table').DataTable({
+                "lengthChange": false,//不显示更改每页大小的下拉框
+                "searching": false,//不显示搜索框
+                "paging": true,//启用分页
+                "info": true,//显示备注信息
+                "ordering": false,//禁止排序
+                "autoWidth": true,//宽度自适应
+                "processing": true,//开启加载等待
+                "iDisplayLength": 3,//每页的大小（显示条数）
+                "pagingType": "full_numbers",
+                //配置中文提示
+                "language": {
+                    "processing": "请求数据中...",//加载数据时的提示信息
+                    "lengthMenu": "显示 _MENU_ 项结果",
+                    "zeroRecords": "没有匹配结果",//无数据时的提示信息
+                    "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "infoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "infoPostFix": "",
+                    "search": "搜索:",
+                    "searchPlaceholder": "搜索...",
+                    "url": "",
+                    "emptyTable": "表中数据为空",
+                    "loadingRecords": "载入中...",
+                    "infoThousands": ",",
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "上页",
+                        "next": "下页",
+                        "last": "尾页"
+                    },
+                    "aria": {
+                        "sortAscending": ": 以升序排列此列",
+                        "sortDescending": ": 以降序排列此列"
+                    },
+                    "decimal": "-",
+                    "thousands": "."
+
+                },
+                "serverSide": true,//开启服务端模式（从后台获取）
+
+                "ajax": function (data, callback, settings) {
+                    //封装请求参数
+                    var param = {};
+                    param.draw = data.draw;//为了保证请求一致性，服务端直接返回就可以，不需要更改
+                    param.pageSize = data.length;//页面显示记录条数，在页面显示每页多少项的时候
+                    param.pageIndex = (data.start / data.length) + 1;//显示页码
+
+                    //ajax请求数据
+                    $.ajax({
+                        type: "POST",
+                        url: "/ProductBrand/GetAll",
+                        cache: false,//禁用缓存
+                        data: param,//传入组装的参数
+                        dataType: "json",
+                        success: function (result) {
+                            setTimeout(function () {
+                                callback(result);//渲染数据
+                            }, 500);//请求时长500
+                        }
+                    });
+                },
+                //设置数据映射
+                columns: [
+
+
+                    { "data": "ID" },
+                    { "data": "BrandName" },
+                    { "data": "BrandFirstLetter" },
+                    { "data": "OrderNum" },
+                    {
+                        "data": function (data) {
+                            if (data.isDisplay == "1") {
+                                return "是"
+                            }
+                            else {
+                                return "否"
+                            }
+                        }
+                    },
+                    {
+                        "data": function (data) {
+                            if (data.isBrandMfrs == "1") {
+                                return "是"
+                            }
+                            else {
+                                return "否"
+                            }
+                        }
+                    },
+
+                    {
+                        "data": function (data) {
+                            var html = "<a href=\"/ProductBrand/Update?id=" + data.ID + " \" class=\"btn btn-sm btn-primary\">编辑</a>";
+
+                            html += "&nbsp;&nbsp;"
+                            html += "<a href=\"#\" class=\"btn btn-sm btn-danger\" onclick=\"alertDelModal(" + data.ID + ")\">删除</a>";
+                            return html;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
+

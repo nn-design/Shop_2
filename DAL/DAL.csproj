@@ -50,6 +50,7 @@
     <Compile Include="ProductAttrDAL.cs" />
     <Compile Include="ProductAttrKeyDAL.cs" />
     <Compile Include="ProductAttrValueDAL.cs" />
+    <Compile Include="ProductBrandDAL.cs" />
     <Compile Include="ProductCategoryDAL.cs" />
     <Compile Include="ProductDAL.cs" />
     <Compile Include="ProductSkuDAL.cs" />

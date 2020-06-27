@@ -44,6 +44,7 @@
     <Compile Include="DbContextTransaction.cs" />
     <Compile Include="IBaseDAL.cs" />
     <Compile Include="IProductAttrDAL.cs" />
+    <Compile Include="IProductBrandDAL.cs" />
     <Compile Include="IProductSkuDAL.cs" />
     <Compile Include="IProductAttrKeyDAL.cs" />
     <Compile Include="IProductAttrValueDAL.cs" />

@@ -95,6 +95,71 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CategoryImages\202003181707570470841376.png" />
+    <Content Include="CategoryImages\202003181723182322335106.png" />
+    <Content Include="CategoryImages\202003181802111970883741.png" />
+    <Content Include="CategoryImages\202003181805563236483638.jpg" />
+    <Content Include="CategoryImages\202003231835123919099065.png" />
+    <Content Include="CategoryImages\202003240943226277064658.png" />
+    <Content Include="CategoryImages\202003240943418141844363.png" />
+    <Content Include="CategoryImages\202003240944121510611726.png" />
+    <Content Include="CategoryImages\202003240944364790162399.png" />
+    <Content Include="CategoryImages\202003240945016048856641.png" />
+    <Content Include="CategoryImages\202003241553416675835540.png" />
+    <Content Include="CategoryImages\202003241554105822788184.png" />
+    <Content Include="CategoryImages\202003241556571768181235.png" />
+    <Content Include="CategoryImages\202003241557197973337489.png" />
+    <Content Include="CategoryImages\202003241557513030915548.png" />
+    <Content Include="CategoryImages\202003241558177733122356.png" />
+    <Content Include="CategoryImages\202004020957126413852759.png" />
+    <Content Include="CategoryImages\202004021811579202075548.png" />
+    <Content Include="CategoryImages\202004021929130543374940.png" />
+    <Content Include="CategoryImages\202004021930275781131946.png" />
+    <Content Include="CategoryImages\202004031104242462336032.png" />
+    <Content Include="CategoryImages\202004031108599856830993.jpg" />
+    <Content Include="CategoryImages\202004031115553384236040.png" />
+    <Content Include="CategoryImages\202004031124293740218641.png" />
+    <Content Include="CategoryImages\202004031124491930577062.png" />
+    <Content Include="CategoryImages\202004031125285977296354.png" />
+    <Content Include="CategoryImages\202004031126244266692794.png" />
+    <Content Include="CategoryImages\202004031127040916529638.png" />
+    <Content Include="CategoryImages\202004031127525162218709.png" />
+    <Content Include="CategoryImages\202004031128549932338808.png" />
+    <Content Include="CategoryImages\202004031522169907161243.png" />
+    <Content Include="CategoryImages\202004031522369603489241.png" />
+    <Content Include="CategoryImages\202004031522543070084260.png" />
+    <Content Include="CategoryImages\202004031523517314957835.png" />
+    <Content Include="CategoryImages\202004031524167406510067.png" />
+    <Content Include="CategoryImages\202004031524504435637099.png" />
+    <Content Include="CategoryImages\202004031525225776729289.png" />
+    <Content Include="CategoryImages\202004031526049175181264.png" />
+    <Content Include="CategoryImages\202004031526328139578063.png" />
+    <Content Include="CategoryImages\202004031609472437038902.png" />
+    <Content Include="CategoryImages\202004031639275277273389.png" />
+    <Content Include="CategoryImages\202004080942241057495723.png" />
+    <Content Include="CategoryImages\202004080943262172033969.png" />
+    <Content Include="CategoryImages\202004170818269112953503.png" />
+    <Content Include="CategoryImages\202004210901401377316136.png" />
+    <Content Include="CategoryImages\202004220752267042464461.png" />
+    <Content Include="CategoryImages\202004220756547293480605.png" />
+    <Content Include="CategoryImages\202004220831595418986942.png" />
+    <Content Include="CategoryImages\202004220843379984544460.png" />
+    <Content Include="CategoryImages\202004220848421733758200.png" />
+    <Content Include="CategoryImages\202004220854491539481053.png" />
+    <Content Include="CategoryImages\202004220942101663594912.png" />
+    <Content Include="CategoryImages\202004251742208709495327.png" />
+    <Content Include="CategoryImages\202004261611170489013101.png" />
+    <Content Include="CategoryImages\202004261611473235320604.png" />
+    <Content Include="CategoryImages\202004261612143243264117.png" />
+    <Content Include="CategoryImages\202004261640551574673887.png" />
+    <Content Include="CategoryImages\202004281847224031652014.png" />
+    <Content Include="CategoryImages\202004281847519018111224.png" />
+    <Content Include="CategoryImages\202005191045480115024782.png" />
+    <Content Include="CategoryImages\202005191550286395780402.png" />
+    <Content Include="CategoryImages\202005191550286435980402.png" />
+    <Content Include="CategoryImages\202005191550286445680402.png" />
+    <Content Include="CategoryImages\202005191552380124927862.png" />
+    <Content Include="CategoryImages\202005191552380144527862.png" />
     <Content Include="Global.asax" />
     <Content Include="Statics\adminlte\dist\css\adminlte.min.css" />
     <Content Include="Statics\adminlte\dist\fonts\glyphicons-halflings-regular.svg" />
@@ -419,12 +484,14 @@
     <Compile Include="Controllers\ImgController.cs" />
     <Compile Include="Controllers\ProductAttrKeyController.cs" />
     <Compile Include="Controllers\ProductAttrKeySkuController.cs" />
+    <Compile Include="Controllers\ProductBrandController.cs" />
     <Compile Include="Controllers\ProductCategoryController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductAttrKeyVModel.cs" />
+    <Compile Include="Models\ProductBrandVModel.cs" />
     <Compile Include="Models\ProductCategoryAddVModel.cs" />
     <Compile Include="Models\ProductCategoryUpdateVModel.cs" />
     <Compile Include="Models\ProductCategoryVModel.cs" />
@@ -473,6 +540,9 @@
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Update.cshtml" />
+    <Content Include="Views\ProductBrand\Add.cshtml" />
+    <Content Include="Views\ProductBrand\List.cshtml" />
+    <Content Include="Views\ProductBrand\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -482,7 +552,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CategoryImages\" />
+    <Folder Include="Upload\Product\BrandLogo\" />
+    <Folder Include="Upload\Product\BrandSpecialImg\" />
     <Folder Include="Upload\Product\CategoryImages\" />
     <Folder Include="Upload\Product\ProductDetail\" />
     <Folder Include="Upload\Product\ProductMainImg\" />

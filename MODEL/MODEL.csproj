@@ -63,6 +63,9 @@
     <Compile Include="ProductAttrValue.cs">
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductBrand.cs">
+      <DependentUpon>Shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductCategory.cs">
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>

@@ -397,6 +397,7 @@
                     productObj.ProductSkuValues = JSON.stringify(skuArrays)
 
                     product.Product = productObj;
+                    console.log("productObj+"+productObj)
                     skuDatas = []
                     $("#sku-table tbody tr").each(function (index) {
                         var sku = {}

@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4>商品品牌添加</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">首页</a></li>
+                    <li class="breadcrumb-item active">商品品牌</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-info">
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form class="form-horizontal" id="form">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-2 col-form-label">品牌名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="BrandName" name="BrandName" placeholder="请输入品牌名称">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-2 col-form-label">品牌首字母</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="BrandFirstLetter" name="BrandFirstLetter" placeholder="a">
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Img" class="col-sm-2 col-form-label">品牌LOGO</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="BrandLogo" id="BrandLogo" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Img" class="col-sm-2 col-form-label">品牌专区大图</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="BrandSpecialImg" id="BrandSpecialImg" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="OrderNum" class="col-sm-2 col-form-label">品牌故事</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="BrandStory" name="BrandStory" placeholder="请输入内容">
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="OrderNum" class="col-sm-2 col-form-label">排序</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="OrderNum" name="OrderNum" placeholder="0">
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group row">
+                            <label for="isDisplay" class="col-sm-2 col-form-label">是否显示</label>
+                            <div class="col-sm-9" id="isDisplay">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radioPrimary1" name="isDisplay" checked="" value="1">
+                                            <label for="radioPrimary1" style="font-weight:normal;">
+                                                是
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radioPrimary2" name="isDisplay" checked="" value="2">
+                                            <label for="radioPrimary2" style="font-weight:normal;">
+                                                否
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="isBrandMfrs" class="col-sm-2 col-form-label">品牌制造商</label>
+                            <div class="col-sm-9" id="isBrandMfrs">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radio1" name="r1" checked="" value="1">
+                                            <label for="radio1" style="font-weight:normal;">
+                                                是
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radio2" name="r1" checked="" value="2">
+                                            <label for="radio2" style="font-weight:normal;">
+                                                否
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                        <a href="/ProductCategory/List" class="btn btn-default float-right">返回</a>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+
+@section js{
+    <script>
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+        var BrandLogo = [], BrandSpecialImg = []
+
+        function init() {
+            var id = $.getUrlParam("id")
+            console.log(id)
+            $.ajax({
+                url: "/ProductBrand/GetOne",
+                type: "GET",
+                data: { id: id },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+
+                    //1.初始化商品基本信息
+                    var productObj = data.product
+
+                    $("#BrandName").val(productObj.BrandName);
+                    $("#BrandFirstLetter").val(productObj.BrandFirstLetter);
+                    $("#BrandStory").val(productObj.BrandStory);
+                    $("#OrderNum").val(productObj.OrderNum);
+                    $("input[name='isDisplay'][value=" + productObj.isDisplay + "]").prop("checked", "checked");
+
+                    $("input[name='r1'][value=" + productObj.isBrandMfrs + "]").prop("checked", "checked");
+
+                   
+
+                    //eval()：接受一个字符串类型参数，可以将字符串转换成数组或对象，eval("()")
+                    var _BrandLogo = eval("(" + productObj.BrandLogo + ")")
+                    var BrandLogoTag = ["<img src='" + _BrandLogo[0] + "' class='file - preview - image' width=200>"]
+                    BrandLogo.push(_BrandLogo[0])
+                    //图片插件，上传品牌LOGO图
+                    $('#BrandLogo').fileinput({
+                        language: 'zh',//设置语言
+                        allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
+                        showUpload: true,//是否显示上传按钮
+                        browseClass: "btn btn-primary",//按钮样式
+                        dropZoneEnabled: false,//是否拖拉可上传
+                        uploadUrl: "/Img/Upload",
+                        uploadAsync: true,//默认异步上传
+                        uploadExtraData: { imgType: 'BrandLogo' },
+                        // 设置预览图片
+                        initialPreview: BrandLogoTag
+                    });
+                    //eval()：接受一个字符串类型参数，可以将字符串转换成数组或对象，eval("()")
+                    var _BrandSpecialImg = eval("(" + productObj.BrandSpecialImg + ")")
+                    var BrandSpecialImgTag = ["<img src='" + _BrandSpecialImg[0] + "' class='file - preview - image' width=200>"]
+                    BrandSpecialImg.push(_BrandSpecialImg[0])
+                    $('#BrandSpecialImg').fileinput({
+                        language: 'zh',//设置语言
+                        allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
+                        showUpload: true,//是否显示上传按钮
+                        browseClass: "btn btn-primary",//按钮样式
+                        dropZoneEnabled: false,//是否拖拉可上传
+                        uploadUrl: "/Img/Upload",
+                        uploadAsync: true,//默认异步上传
+                        uploadExtraData: { imgType: 'BrandSpecialImg' },
+
+                        // 设置预览图片
+                        initialPreview: BrandSpecialImgTag
+                    });
+                }
+            })
+        }
+
+        $(function () {
+           
+            //图片上传成功的回调函数
+            $('#BrandLogo').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
+
+                //获取服务端返回数据
+                //console.log(data.response)
+                BrandLogo.push(data.response[0]);
+            });
+            //图片插件，上传品牌专区大图图
+            
+            //图片上传成功的回调函数
+            $('#BrandSpecialImg').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
+
+                //获取服务端返回数据
+                //console.log(data.response)
+                BrandSpecialImg.push(data.response[0]);
+            });
+
+
+            $('#form').validate({
+
+                submitHandler: function (form) {
+                    var brand = {}
+                    var ajaxData = {};
+
+                    ajaxData.ID = $.getUrlParam("id")
+                    ajaxData.BrandName = $("#BrandName").val(),
+                    ajaxData.BrandFirstLetter = $("#BrandFirstLetter").val(),
+                    ajaxData.BrandStory = $("#BrandStory").val(),
+                    ajaxData.BrandLogo = JSON.stringify(BrandLogo);
+                    ajaxData.BrandSpecialImg = JSON.stringify(BrandSpecialImg);
+                    ajaxData.OrderNum = $("#OrderNum").val()
+                    ajaxData.isDisplay = $("input[name='isDisplay']:checked").val()
+
+                    ajaxData.isBrandMfrs = $("input[name='r1']:checked").val()
+                    brand.Brand = ajaxData;
+                    console.log(brand)
+
+
+                    $.ajax({
+
+                        //指定请求地址
+                        url: "/ProductBrand/Update",
+                        //指定请求方式：GET、POST
+                        type: "POST",
+                        //期望服务端返回的数据格式(在回调函数中会自动将json串转化成js对象)
+                        dataType: "json",
+                        //向服务端发送的数据
+
+                        data: JSON.stringify(ajaxData),//将js对象序列化为json字符串
+                        contentType: "application/json;charset=utf-8",//指定数据的类型为json
+                        //当请求成功之后的回调函数，一般在接收服务端返回的数据
+                        // {"State":true} (自动将json串转化成js对象，{State:true})
+                        success: function (result) {//result参数代表服务端返回的数据
+                            console.log(result)
+                            if (result.state) {
+
+                                toastr.success("修改成功")
+                                //document.getElementById("form").reset();
+                            } else {
+
+                                toastr.error("修改失败")
+                            }
+                        },
+                        //当请求失败之后的回调函数
+                        error: function (result) {//result参数代表服务端返回的数据
+                            toastr.error("修改失败")
+                        }
+                    })
+
+                }
+            })
+
+            //初始化商品信息
+            init();
+        })
+    </script>
+
+
+}

@@ -50,6 +50,20 @@
           <Property Name="AttrValue" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductAttrKeyID" Type="int" />
         </EntityType>
+        <EntityType Name="ProductBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrandFirstLetter" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrandLogo" Type="varchar" MaxLength="500" />
+          <Property Name="BrandSpecialImg" Type="varchar" MaxLength="500" />
+          <Property Name="BrandStory" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrderNum" Type="int" />
+          <Property Name="isDisplay" Type="int" />
+          <Property Name="isBrandMfrs" Type="int" />
+        </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
             <PropertyRef Name="ID" />
@@ -78,6 +92,7 @@
           <EntitySet Name="ProductAttr" EntityType="Self.ProductAttr" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductAttrKey" EntityType="Self.ProductAttrKey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductAttrValue" EntityType="Self.ProductAttrValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductBrand" EntityType="Self.ProductBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductSku" EntityType="Self.ProductSku" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -92,6 +107,7 @@
           <EntitySet Name="ProductAttrValue" EntityType="ShopModel.ProductAttrValue" />
           <EntitySet Name="ProductSku" EntityType="ShopModel.ProductSku" />
           <EntitySet Name="ProductAttr" EntityType="ShopModel.ProductAttr" />
+          <EntitySet Name="ProductBrand" EntityType="ShopModel.ProductBrand" />
         </EntityContainer>
         <EntityType Name="ProductCategory">
           <Key>
@@ -160,6 +176,20 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductAttrs" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="ProuductID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrandFirstLetter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrandLogo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="BrandSpecialImg" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="BrandStory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNum" Type="Int32" />
+          <Property Name="isDisplay" Type="Int32" />
+          <Property Name="isBrandMfrs" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -237,6 +267,21 @@
               <MappingFragment StoreEntitySet="ProductAttr">
                 <ScalarProperty Name="ProuductID" ColumnName="ProuductID" />
                 <ScalarProperty Name="ProductAttrs" ColumnName="ProductAttrs" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductBrand">
+            <EntityTypeMapping TypeName="ShopModel.ProductBrand">
+              <MappingFragment StoreEntitySet="ProductBrand">
+                <ScalarProperty Name="isBrandMfrs" ColumnName="isBrandMfrs" />
+                <ScalarProperty Name="isDisplay" ColumnName="isDisplay" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="BrandStory" ColumnName="BrandStory" />
+                <ScalarProperty Name="BrandSpecialImg" ColumnName="BrandSpecialImg" />
+                <ScalarProperty Name="BrandLogo" ColumnName="BrandLogo" />
+                <ScalarProperty Name="BrandFirstLetter" ColumnName="BrandFirstLetter" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
