@@ -136,8 +136,11 @@
     <script src="/Statics/adminlte/plugins/wizard/js/jquery.steps.js"></script>
 
     <script>
+        
 
         var ProductMainImg = [], ProductSlideImgs = [], ProductDetail = [], ProductCategoryID
+
+        var imgUploadUrl = "http://localhost:56568/Img/Upload" 
         var skuArrays = [];
         results = [];
         result = [];
@@ -470,7 +473,7 @@
                 showUpload: true,//是否显示上传按钮
                 browseClass: "btn btn-primary",//按钮样式
                 dropZoneEnabled: false,//是否拖拉可上传
-                uploadUrl: "/Img/Upload",
+                uploadUrl: imgUploadUrl,
                 uploadAsync: true,//默认异步上传
                 uploadExtraData: { imgType: 'ProductMainImg' },
             });
@@ -488,7 +491,7 @@
                 showUpload: true,//是否显示上传按钮
                 browseClass: "btn btn-primary",//按钮样式
                 dropZoneEnabled: true,//是否拖拉可上传
-                uploadUrl: "/Img/Upload",
+                uploadUrl: imgUploadUrl,
                 uploadAsync: true,//默认异步上传
                 uploadExtraData: { imgType: 'ProductSlideImgs' },
             });
@@ -506,7 +509,7 @@
                 showUpload: true,//是否显示上传按钮
                 browseClass: "btn btn-primary",//按钮样式
                 dropZoneEnabled: true,//是否拖拉可上传
-                uploadUrl: "/Img/Upload",
+                uploadUrl: imgUploadUrl,
                 uploadAsync: true,//默认异步上传
                 uploadExtraData: { imgType: 'ProductDetail' },
             });

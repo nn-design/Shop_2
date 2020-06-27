@@ -82,6 +82,7 @@
 @section js{
 
     <script>
+        var Img;
 
         //当文档加载完成后的回调函数
         $(function () {
@@ -89,11 +90,20 @@
             $('#Img').fileinput({
                 language: 'zh',//设置语言
                 allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
-                showUpload: false,
+                showUpload: true,
                 browseClass: "btn btn-primary",
                 dropZoneEnabled: false,
+                uploadUrl: "http://localhost:56568/Img/Upload",
+                uploadAsync: true,//默认异步上传
+                uploadExtraData: { imgType: 'ProductCategoryImage' },
             });
+            //图片上传成功的回调函数
+            $('#Img').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
 
+                //获取服务端返回数据
+                //console.log(data.response)
+                Img=data.response[0];
+            });
 
             //验证信息不得为空
             $('#form').validate({
@@ -161,7 +171,7 @@
                     formData.append("Name", $("#Name").val())
                     formData.append("PID", $("#PID").val())
                     formData.append("OrderNum", $("#OrderNum").val())
-                    formData.append("file", $("#Img")[0].files[0])
+                    formData.append("Img", Img)
                     console.log(formData)
                     $.ajax({
 
