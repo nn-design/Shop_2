@@ -51,6 +51,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -400,6 +403,8 @@
     <Content Include="Statics\adminlte\plugins\jquery\jquery.min.js" />
     <Content Include="Statics\adminlte\plugins\jquery\jquery.slim.js" />
     <Content Include="Statics\adminlte\plugins\jquery\jquery.slim.min.js" />
+    <Content Include="Statics\adminlte\plugins\select-tree\bootstrap-treeview.js" />
+    <Content Include="Statics\adminlte\plugins\select-tree\bootstrap-treeview.min.js" />
     <Content Include="Statics\adminlte\plugins\select2-bootstrap4-theme\select2-bootstrap4.css" />
     <Content Include="Statics\adminlte\plugins\select2-bootstrap4-theme\select2-bootstrap4.min.css" />
     <Content Include="Statics\adminlte\plugins\select2\css\select2.css" />

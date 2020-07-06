@@ -37,21 +37,34 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        @*<div class="form-group row">
                             <label for="PID" class="col-sm-2 col-form-label">父级分类</label>
 
                             <div class="col-sm-10">
-                                <select id="PID" name="PID"
-                                        class="form-control select2 select2-hidden-accessible" style="width: 100%">
-                                    <option value="0">请选择</option>
-                                    @foreach (var item in Model.Categories)
-                                    {
-                                        <option value="@item.ID">@item.Name</option>
-                                    }
-                                </select>
+                                    <select id="PID" name="PID"
+                                            class="form-control select2 select2-hidden-accessible" style="width: 100%">
+                                        <option value="0">请选择</option>
+                                        @foreach (var item in Model.Categories)
+                                        {
+                                            <option value="@item.ID">@item.Name</option>
+                                        }
+                                    </select>
 
+                                </div>
+                        </div>*@
+
+
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-2 col-form-label">父级分类：</label>
+                            <div class="col-sm-10" style="position:relative;">@*相对定位*@
+                                <div style="width:100%;">
+                                    <input type="text" id="Category" onclick="disTreeSelect()" class="form-control" placeholder="点击选择父级分类" autoComplete="off">
+                                </div>
+                                <div id="tree" style="display:none;position:absolute;top:39px;z-index:99999;left:0;right:0;padding:0 7px;"></div>
                             </div>
                         </div>
+
+
                         <div class="form-group row">
                             <label for="OrderNum" class="col-sm-2 col-form-label">排序号</label>
                             <div class="col-sm-10">
@@ -62,13 +75,13 @@
                         <div class="form-group row">
                             <label for="Img" class="col-sm-2 col-form-label">分类图片</label>
                             <div class="col-sm-10">
-                                <input type="file" name="Img" id="Img"/>
+                                <input type="file" name="Img" id="Img" />
                             </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit"  class="btn btn-primary">提交</button>
+                        <button type="submit" class="btn btn-primary">提交</button>
                         <a href="/ProductCategory/List" class="btn btn-default float-right">返回</a>
                     </div>
                     <!-- /.card-footer -->
@@ -83,9 +96,53 @@
 
     <script>
         var Img;
+        function disTreeSelect() {
 
+            $("#tree").show()
+        }
         //当文档加载完成后的回调函数
         $(function () {
+
+            $.ajax({
+
+                //指定请求地址
+                url: "/ProductCategory/GetAll1",
+                //指定请求方式：GET、POST
+                type: "POST",
+                //期望服务端返回的数据格式(在回调函数中会自动将json串转化成js对象)
+                dataType: "json",
+                async: false,
+                //当请求成功之后的回调函数，一般在接收服务端返回的数据
+                // {"State":true} (自动将json串转化成js对象，{State:true})
+                success: function (result) {//result参数代表服务端返回的数据
+                       //拿到数据对数据进行车初始化
+                    $('#tree').treeview({
+                        data: eval("(" + result + ")"),
+                        levels: 1//设置显示几级节点（只显示一级节点，不会都展开）
+                    });
+                }
+            })
+
+
+            $('#tree').on('nodeSelected', function (event, data) {
+
+                $(this).hide();
+                $("#Category").val(data.text);
+                PID = data.tags[0]
+
+            });
+            //点击树之外的区域将树隐藏掉
+            var myDiv = document.getElementById("tree");
+            document.addEventListener("click", function () {
+                myDiv.style.display = "none";
+            }, true);//true捕获机制（从外到里），默认情况下为false冒泡机制（从里到外）
+            myDiv.addEventListener("click", function (event) {
+                event = event || window.event;
+                $("#tree").show()
+            }, true);
+
+
+
             //设置上传插件
             $('#Img').fileinput({
                 language: 'zh',//设置语言
@@ -102,7 +159,7 @@
 
                 //获取服务端返回数据
                 //console.log(data.response)
-                Img=data.response[0];
+                Img = data.response[0];
             });
 
             //验证信息不得为空
@@ -212,7 +269,7 @@
             });
 
 
-            
+
         })
     </script>
 
