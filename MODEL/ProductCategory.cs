@@ -21,5 +21,6 @@ namespace MODEL
         public Nullable<int> OrderNum { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+        public string Path { get; set; }
     }
 }

@@ -17,9 +17,6 @@ namespace DAL
             return entities.ProductAttrValue.Where(x => x.ProductAttrKeyID == attrKeyID).ToList();
         }
 
-        IDAL.DbContextTransaction IBaseDAL<ProductAttrValue>.BeginTran()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

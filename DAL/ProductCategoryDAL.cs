@@ -55,9 +55,6 @@ namespace DAL
             
         }
 
-        IDAL.DbContextTransaction IBaseDAL<ProductCategory>.BeginTran()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

@@ -46,25 +46,10 @@ namespace Shop.Controllers
                         return Json(new { state = false, msg = error.ErrorMessage });
                     }
                 }
-
-
-                
             }
             
-            
-
-            //4.将数据保存到数据库
-
-            //category.Img = newFileName;
-            category.CreateTime = DateTime.Now;
-
-            //匿名类型：var 变量名=new{属性名1=值1，属性名2=值2...}
-            //var result = new { state = true,name=Name,pid=PID, ordernum= OrderNum };
 
             bll.Add(category);
-            //return View();
-            //Json方法用来将一个对象序列化json串
-            //return Json(result);
             return Json(new { state=true,msg="添加成功"});
         }
        
@@ -137,6 +122,13 @@ namespace Shop.Controllers
             var rootList = bll.GetSub(0);//(男装、女装)
             //dynamic动态类型
             List<dynamic> list = new List<dynamic>();
+
+            dynamic firstNode = new ExpandoObject();//ExpandoObject：动态类型，可以动态为其添加属性
+            firstNode.text ="无上级分类" ;
+            firstNode.tags = new List<int>();
+            firstNode.tags.Add(0);//tags存放分类ID
+            list.Add(firstNode);
+
             foreach (var category in rootList)
             {
                 dynamic treeObj = new ExpandoObject();//ExpandoObject：动态类型，可以动态为其添加属性
@@ -156,7 +148,7 @@ namespace Shop.Controllers
         //递归获取父节点的所有子节点（层层钻取获取子节点）
         private void GetSub1(dynamic treeObj)//( 1 男装 2 男士上衣 3 男士T恤) 
         {
-            var subList = bll.GetSub(treeObj[0]);//(1 男士上衣 2 男士T恤、男士衬衫)
+            var subList = bll.GetSub(treeObj.tags[0]);//(1 男士上衣 2 男士T恤、男士衬衫)
             //判断子节点下是否还包含子节点
             if (subList.Count == 0)//递归终止条件
             { 

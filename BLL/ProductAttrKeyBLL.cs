@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,7 +74,7 @@ namespace BLL
             return result;
         }
 
-        IBLL.DbContextTransaction IBaseBLL<ProductAttrKey>.BeginTran()
+        System.Data.Entity.DbContextTransaction IBaseBLL<ProductAttrKey>.BeginTran()
         {
             throw new NotImplementedException();
         }

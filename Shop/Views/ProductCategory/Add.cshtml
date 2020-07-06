@@ -226,12 +226,11 @@
                     //FormData主要用来模拟一个表单对象，主要用于文件上传，可以存储键值对数据
                     var formData = new FormData();
                     formData.append("Name", $("#Name").val())
-                    formData.append("PID", $("#PID").val())
+                    formData.append("PID", PID)
                     formData.append("OrderNum", $("#OrderNum").val())
                     formData.append("Img", Img)
                     console.log(formData)
                     $.ajax({
-
                         //指定请求地址
                         url: "/ProductCategory/Add",
                         //指定请求方式：GET、POST

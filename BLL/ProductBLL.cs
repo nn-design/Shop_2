@@ -7,6 +7,7 @@ using MODEL;
 using DAL;
 using IBLL;
 using IDAL;
+using System.Data.Entity;
 
 namespace BLL
 {
@@ -108,7 +109,7 @@ namespace BLL
             return result;
         }
 
-        IBLL.DbContextTransaction IBaseBLL<Product>.BeginTran()
+        System.Data.Entity.DbContextTransaction IBaseBLL<Product>.BeginTran()
         {
             throw new NotImplementedException();
         }

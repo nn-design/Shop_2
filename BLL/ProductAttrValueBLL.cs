@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace BLL
             return dal.GetAllByAttrKeyID(attrKeyID);
         }
 
-        IBLL.DbContextTransaction IBaseBLL<ProductAttrValue>.BeginTran()
+        System.Data.Entity.DbContextTransaction IBaseBLL<ProductAttrValue>.BeginTran()
         {
             throw new NotImplementedException();
         }

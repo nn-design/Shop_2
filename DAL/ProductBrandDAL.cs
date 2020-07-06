@@ -10,9 +10,6 @@ namespace DAL
 {
     public class ProductBrandDAL : BaseDAL<ProductBrand>, IProductBrandDAL
     {
-        DbContextTransaction IBaseDAL<ProductBrand>.BeginTran()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
