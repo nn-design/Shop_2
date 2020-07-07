@@ -48,7 +48,7 @@ namespace DAL
 
         public override void Update(ProductCategory model)
         {
-            DbEntityEntry entityEntry = entities.Entry(model);
+            DbEntityEntry entityEntry = entities.Entry<ProductCategory>(model);
             entityEntry.State = EntityState.Modified;
 
             entityEntry.Property("CreateTime").IsModified = false;//时间不变不更新

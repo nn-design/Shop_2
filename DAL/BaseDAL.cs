@@ -42,7 +42,7 @@ namespace DAL
 
         public virtual List<T> Search(Func<T, bool> where)
         {
-            return entities.Set<T>().Where(where).ToList();
+            return entities.Set<T>().AsNoTracking().Where(where).ToList();
         }
         public virtual List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where)
         {

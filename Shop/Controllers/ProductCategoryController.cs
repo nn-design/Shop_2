@@ -77,6 +77,7 @@ namespace Shop.Controllers
                 vModel.PID = category.PID;
                 vModel.OrderNum = category.OrderNum;
                 vModel.Img = category.Img;
+                vModel.Path = category.Path;
                 vModel.children = new List<ProductCategoryVModel>();//初始化子节点集合
                 GetSub(vModel);
                 list.Add(vModel);
@@ -107,6 +108,7 @@ namespace Shop.Controllers
                 vModel.PID = category.PID;
                 vModel.OrderNum = category.OrderNum;
                 vModel.Img = category.Img;
+                vModel.Path = category.Path;
                 vModel.children = new List<ProductCategoryVModel>();//初始化子节点集合
                 GetSub(vModel);//开始递归
                 parentNode.children.Add(vModel);
@@ -148,7 +150,7 @@ namespace Shop.Controllers
         //递归获取父节点的所有子节点（层层钻取获取子节点）
         private void GetSub1(dynamic treeObj)//( 1 男装 2 男士上衣 3 男士T恤) 
         {
-            var subList = bll.GetSub(treeObj.tags[0]);//(1 男士上衣 2 男士T恤、男士衬衫)
+            var subList = bll.Search(x=>x.PID==treeObj.tags[0]&&x.Path.Split(',').Length!=3);//(1 男士上衣 2 男士T恤、男士衬衫)
             //判断子节点下是否还包含子节点
             if (subList.Count == 0)//递归终止条件
             { 

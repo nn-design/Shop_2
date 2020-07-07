@@ -39,15 +39,35 @@ namespace BLL
                     path = parent.Path + "," + model.ID;
                 }
                 model.Path = path;
-                this.Update(model);
+                dal.Update(model);
                 result += this.SaveChange();
                 tran.Commit();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                result = 0;
                 tran.Rollback();
             }
-            return SaveChange();
+            return result;
+        }
+        public override int Update(ProductCategory model)
+        {
+            int result = 0;
+            string path = "";//定义path
+            model.UpdateTime = DateTime.Now;
+            if (model.PID == 0)
+            {
+                path = model.ID.ToString();//获取自己的id添加进path
+            }
+            else
+            {
+                var parent = this.Search(x => x.ID == model.PID).First();//查询父级分类数据
+                path = parent.Path + "," + model.ID;//父级分类额path和自己的添加进path
+            }
+            model.Path = path;
+            dal.Update(model);
+            result += this.SaveChange();
+            return result;
         }
         public List<ProductCategory> GetSub(int id)
         {
