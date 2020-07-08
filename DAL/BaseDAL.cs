@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
@@ -40,9 +41,9 @@ namespace DAL
             return entities.Set<T>().ToList();
         }
 
-        public virtual List<T> Search(Func<T, bool> where)
+        public virtual List<T> Search(Expression<Func<T, bool>> where)
         {
-            return entities.Set<T>().AsNoTracking().Where(where).ToList();
+            return entities.Set<T>().Where(where).ToList();
         }
         public virtual List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where)
         {

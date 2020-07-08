@@ -22,5 +22,6 @@ namespace MODEL
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
         public string Path { get; set; }
+        public string KeyWords { get; set; }
     }
 }

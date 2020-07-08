@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MODEL;
@@ -22,7 +23,7 @@ namespace IBLL
         T GetOne(int id);
         int Update(T model);
         List<T> GetAll();
-        List<T> Search(Func<T, bool> where);
+        List<T> Search(Expression<Func<T, bool>> where);
         List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where);
         int GetCount(Func<T, bool> where);
         int SaveChange();

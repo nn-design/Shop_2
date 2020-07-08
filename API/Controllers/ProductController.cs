@@ -21,7 +21,26 @@ namespace API.Controllers
                 return new ProductBLL();
             }
         }
-       
+        //public ResponsMessage<List<ProductCategoryVModel>> GetMsg(string kewWords,int pageNum,int pageSize)
+        //{
+        //    var list = Bll.Search(kewWords);
+
+        //}
+        //public ActionResult GetAll(int draw, int pageSize, int pageIndex)
+        //{
+        //    var list = Bll.Search(pageSize, pageIndex, false, x => true);
+        //    var count = Bll.GetCount(x => true);
+        //    ////构造返回json对象{"draw":  ,"data": }
+
+        //    var result = new
+        //    {
+        //        draw = draw,
+        //        data = list,
+        //        recordsTotal = count,
+        //        recordsFiltered = count,
+        //    };
+        //    return Json(result);
+        //}
 
 
     }

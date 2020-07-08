@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MODEL;
 using IDAL;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace BLL
 {
@@ -43,7 +44,7 @@ namespace BLL
             return dal.GetAll();
         }
 
-        public virtual List<T> Search(Func<T, bool> where)
+        public virtual List<T> Search(Expression<Func<T, bool>> where)
         {
             return dal.Search(where);
         }

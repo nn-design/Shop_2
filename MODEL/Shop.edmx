@@ -75,6 +75,7 @@
           <Property Name="OrderNum" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="200" />
           <Property Name="Path" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="ProductSku">
@@ -122,6 +123,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
           <Property Name="Path" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="KeyWords" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -202,6 +204,7 @@
           <EntitySetMapping Name="ProductCategory">
             <EntityTypeMapping TypeName="ShopModel.ProductCategory">
               <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

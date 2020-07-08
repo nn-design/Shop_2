@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MODEL;
@@ -44,7 +45,7 @@ namespace IDAL
         /// </summary>
         /// <returns></returns>
         List<T> GetAll();
-        List<T> Search(Func<T, bool> where);
+        List<T> Search(Expression<Func<T, bool>> where);
         /// <summary>
         /// 分页
         /// </summary>
