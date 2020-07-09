@@ -36,8 +36,9 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult GetAll(int draw, int pageSize, int pageIndex)
         {
-            var list = Bll.Search(pageSize, pageIndex, false, x => true);
-            var count = Bll.GetCount(x => true);
+            int count;
+            var list = Bll.Search(pageSize, pageIndex, false,x=>x.ID, x => true,out count);
+            
             ////构造返回json对象{"draw":  ,"data": }
 
             var result = new

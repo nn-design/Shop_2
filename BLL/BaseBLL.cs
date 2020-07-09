@@ -48,9 +48,9 @@ namespace BLL
         {
             return dal.Search(where);
         }
-        public virtual List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where)
+        public virtual List<T> Search<TKey>(int pageSize, int pageIndex, bool isDesc, Func<T, TKey> orderkey, Expression<Func<T, bool>> where, out int count)
         {
-            return dal.Search(pageSize, pageIndex, isDesc, where);
+            return dal.Search<TKey>(pageSize, pageIndex, isDesc,orderkey, where,out count);
         }
         public virtual int GetCount(Func<T, bool> where)
         {

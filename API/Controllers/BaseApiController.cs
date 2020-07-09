@@ -42,6 +42,40 @@ namespace API.Controllers
             }
         }
 
+        public virtual  ResponsMessage<PageModel<T>> PostPager(SearchVModel search)
+        {
+
+            try
+            {
+                int count;
+                var list = Bll.Search(
+
+                    search.pageSize,
+                    search.pageIndex,
+                    false,
+                    x => x.ID,
+                    x => 1 == 1,
+                    out count
+                    );
+                PageModel<T> page = new PageModel<T>()
+                {
+
+                    count = count,
+                    data = list
+                };
+                return Success(page);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Error<PageModel<T>>("在查询单条数据过程中出现异常");
+            }
+        }
+        //如果方法满足以下两个条件，只能处理post请求
+        //1 方法必须是public
+        //2 方法不是以http动词开头的
+        [NonAction]
         public ResponsMessage<D> Success<D>(D data)
         {
             return new ResponsMessage<D>()
@@ -51,6 +85,7 @@ namespace API.Controllers
                 Data = data
             };
         }
+        [NonAction]
         public ResponsMessage<D> Error<D>(string message)
         {
             return new ResponsMessage<D>()

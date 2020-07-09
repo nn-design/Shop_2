@@ -38,6 +38,7 @@ namespace API.Controllers
                 vModel.PID = category.PID;
                 vModel.OrderNum = category.OrderNum;
                 vModel.Img = category.Img;
+                vModel.KeyWords = category.KeyWords;
                 vModel.children = new List<ProductCategoryVModel>();//初始化子节点集合
                 GetSub(vModel);
                 list.Add(vModel);
@@ -70,6 +71,7 @@ namespace API.Controllers
                 vModel.PID = category.PID;
                 vModel.OrderNum = category.OrderNum;
                 vModel.Img = category.Img;
+                vModel.KeyWords = category.KeyWords;
                 vModel.children = new List<ProductCategoryVModel>();//初始化子节点集合
                 GetSub(vModel);//开始递归
                 parentNode.children.Add(vModel);

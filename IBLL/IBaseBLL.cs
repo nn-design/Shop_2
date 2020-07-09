@@ -24,7 +24,7 @@ namespace IBLL
         int Update(T model);
         List<T> GetAll();
         List<T> Search(Expression<Func<T, bool>> where);
-        List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where);
+        List<T> Search<TKey>(int pageSize, int pageIndex, bool isDesc, Func<T, TKey> orderkey, Expression<Func<T, bool>> where, out int count);
         int GetCount(Func<T, bool> where);
         int SaveChange();
         DbContextTransaction BeginTran();//开启一个事务

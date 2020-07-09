@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using API.Models;
 using BLL;
 using IBLL;
@@ -12,36 +13,38 @@ using Shop.Models;
 
 namespace API.Controllers
 {
-    public class ProductController : ApiController
+    public class ProductController : BaseApiController<Product, IProductBLL>
     {
-        public IProductBLL Bll
+        public override IProductBLL Bll { get => new ProductBLL(); }
+
+        public override ResponsMessage<PageModel<Product>> PostPager(SearchVModel search)
         {
-            get
+            try
             {
-                return new ProductBLL();
+                int count;
+                var list = Bll.Search(
+
+                    search.pageSize,
+                    search.pageIndex,
+                    false,
+                    x => x.ID,
+                    x => x.ProductTitle.Contains(search.keyWord),
+                    out count
+                    );
+                PageModel<Product> page = new PageModel<Product>()
+                {
+
+                    count = count,
+                    data = list
+                };
+                return Success(page);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Error<PageModel<Product>>("在查询单条数据过程中出现异常");
             }
         }
-        //public ResponsMessage<List<ProductCategoryVModel>> GetMsg(string kewWords,int pageNum,int pageSize)
-        //{
-        //    var list = Bll.Search(kewWords);
-
-        //}
-        //public ActionResult GetAll(int draw, int pageSize, int pageIndex)
-        //{
-        //    var list = Bll.Search(pageSize, pageIndex, false, x => true);
-        //    var count = Bll.GetCount(x => true);
-        //    ////构造返回json对象{"draw":  ,"data": }
-
-        //    var result = new
-        //    {
-        //        draw = draw,
-        //        data = list,
-        //        recordsTotal = count,
-        //        recordsFiltered = count,
-        //    };
-        //    return Json(result);
-        //}
-
-
     }
 }

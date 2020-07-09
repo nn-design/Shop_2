@@ -45,15 +45,17 @@ namespace DAL
         {
             return entities.Set<T>().Where(where).ToList();
         }
-        public virtual List<T> Search(int pageSize, int pageIndex, bool isDesc, Func<T, bool> where)
+        public virtual List<T> Search<TKey>(int pageSize, int pageIndex, bool isDesc, Func<T, TKey> orderkey, Expression<Func<T, bool>> where,out int count)
         {
+            //获取总记录数
+            count = entities.Set<T>().Where(where).Count();
             if (isDesc)
             {
                 return entities.Set<T>().Where(where).OrderByDescending(x => x.ID).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
             else
             {
-                return entities.Set<T>().Where(where).OrderBy(x => x.ID).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                return entities.Set<T>().Where(where).OrderBy(orderkey).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             }
         }
         public virtual int GetCount(Func<T, bool> where)

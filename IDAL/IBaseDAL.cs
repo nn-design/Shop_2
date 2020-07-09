@@ -54,7 +54,7 @@ namespace IDAL
         /// <param name="isDesc"></param>
         /// <param name="where"></param>
         /// <returns></returns>
-        List<T> Search(int pageSize, int pageIndex,bool isDesc, Func<T, bool> where);
+        List<T> Search<TKey>(int pageSize, int pageIndex, bool isDesc, Func<T, TKey> orderkey, Expression<Func<T, bool>> where, out int count);
         /// <summary>
         /// 获得总条数（分页）
         /// </summary>
