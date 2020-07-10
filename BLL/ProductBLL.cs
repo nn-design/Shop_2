@@ -40,9 +40,9 @@ namespace BLL
                 result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
                 tran.Commit();//总提交
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                //throw ex.InnerException;
                 tran.Rollback();
             }
             
