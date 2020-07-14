@@ -6,11 +6,18 @@ using System.Web;
 using System.Web.Mvc;
 using COMMON;
 using Constant;
+using Qiniu.Http;
+using Qiniu.Storage;
+using Qiniu.Util;
+using System.Configuration;
 
 namespace Img.Controllers
 {
     public class ImgController : Controller
     {
+        string ak = ConfigurationManager.AppSettings["AccessKey"];
+        string sk = ConfigurationManager.AppSettings["SecretKey"];
+        string qiNiuScope = ConfigurationManager.AppSettings["QiNiuScope"];
         // GET: Img
         public ActionResult Upload()
         {
@@ -71,6 +78,27 @@ namespace Img.Controllers
                 }
                 string fullPath = upLoadPath + newFileName;
                 file.SaveAs(Server.MapPath(fullPath));
+
+                //4 将图片上传到云服务器（七牛云）
+
+                //1.定义好其中鉴权对象mac
+                Mac mac = new Mac(ak, sk);
+                //2.简单上传的凭证
+                PutPolicy putPolicy = new PutPolicy();
+                putPolicy.Scope = qiNiuScope;//空间命名
+                string token = Auth.CreateUploadToken(mac, putPolicy.ToJsonString());
+                //3.构建配置类
+                Config config = new Config();
+                // 空间对应的机房
+                config.Zone = Zone.ZONE_CN_North;//空间区域
+                // 是否使用https域名
+                config.UseHttps = false;
+                // 上传是否使用cdn加速
+                config.UseCdnDomains = true;
+                //4.字节数据上传
+                FormUploader fu = new FormUploader(config);
+                HttpResult result = fu.UploadData(bytes, fullPath, token,null);
+
                 fileNames.Add("http://localhost:56568"+fullPath);
 
             }
