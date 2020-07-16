@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IDAL;
 using MODEL;
+using VMODEL;
 
 namespace DAL
 {
@@ -28,11 +29,14 @@ namespace DAL
         //    throw new NotImplementedException();
         //}
 
+        //public List<ProductAttrKeyVModel> GetByCatecoryID(int categoryID, bool isSku)
+        //{
+        //    return entities.ProductAttrKeyVModel.Where(x => x.ProductCategoryID == categoryID).ToList();
+        //}
         public List<ProductAttrKey> GetByCatecoryID(int cateroryId)
         {
             return entities.ProductAttrKey.Where(x => x.ProductCategoryID == cateroryId).ToList();
         }
-
         DbContextTransaction IBaseDAL<ProductAttrKey>.BeginTran()
         {
             throw new NotImplementedException();

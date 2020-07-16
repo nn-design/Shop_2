@@ -178,6 +178,7 @@
                 //获取服务端返回数据
                 //console.log(data.response)
                 Img = data.response[0];
+                console.log(Img)
             });
 
             //验证信息不得为空
@@ -246,7 +247,7 @@
                     formData.append("Name", $("#Name").val())
                     formData.append("PID", PID)
                     formData.append("OrderNum", $("#OrderNum").val())
-                    formData.append("Img", Img)
+                    formData.append("Img", JSON.stringify(Img))
                     formData.append("KeyWords", $("#KeyWords").val())
                     console.log(formData)
                     $.ajax({

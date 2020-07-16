@@ -2,22 +2,51 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using IBLL;
 using IDAL;
 using MODEL;
+using VMODEL;
 
 namespace BLL
 {
     public class ProductAttrKeyBLL : BaseBLL<ProductAttrKey, ProductAttrKeyDAL>, IProductAttrKeyBLL
     {
-        public List<ProductAttrKey> GetByCatecoryID(int cateroryId)
+        
+        IProductAttrValueDAL attrValueDal = new ProductAttrValueDAL();
+
+        public List<ProductAttrKeyVModel> GetByCatecoryID(int categoryID, bool isSku)
         {
-            return dal.GetByCatecoryID(cateroryId);
+            //var list = atterKeyBLL.Search(x => x.ProductCategoryID == categoryID && x.IsSku == 0);
+            Expression<Func<ProductAttrKey, bool>> expression = x => x.ProductCategoryID == categoryID;
+            if (isSku)
+            {
+                expression = x => x.ProductCategoryID == categoryID && x.IsSku == 0;
+            }
+            var list = dal.Search(expression);
+            List<ProductAttrKeyVModel> vlist = new List<ProductAttrKeyVModel>();
+            foreach (var item in list)
+            {
+                var vModel = new ProductAttrKeyVModel();
+                vModel.ID = item.ID;
+                vModel.AttrName = item.AttrName;
+                vModel.EnterType = item.EnterType;
+                vModel.AttrValues = new List<string>();
+                var attrvalues = attrValueDal.Search(x => x.ProductAttrKeyID == item.ID);
+                foreach (var valueItem in attrvalues)
+                {
+                    vModel.AttrValues.Add(valueItem.AttrValue);
+                }
+                vlist.Add(vModel);
+
+            }
+            return vlist;
         }
-        public  int Update(ProductAttrKey attrKey,List<ProductAttrValue> attrValues)
+
+        public int Update(ProductAttrKey attrKey,List<ProductAttrValue> attrValues)
         {
             
             //1.对attrKey修改
@@ -78,5 +107,6 @@ namespace BLL
         {
             throw new NotImplementedException();
         }
+
     }
 }

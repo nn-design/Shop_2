@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MODEL;
+using Shop.Models;
 
 namespace IBLL
 {
@@ -11,6 +12,8 @@ namespace IBLL
     {
         int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList);
         Product GetOne(int id, out List<ProductAttr> attrs, out List<ProductSku> skus);
-        int Update(Product product, List<ProductSku> skuList, List<ProductAttr> attrList);
+        ProductVModel GetFullInfoByID(int id);
+        
+       int Update(Product product, List<ProductSku> skuList, List<ProductAttr> attrList);
     }
 }

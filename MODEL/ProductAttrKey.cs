@@ -20,5 +20,6 @@ namespace MODEL
         public Nullable<int> IsSku { get; set; }
         public Nullable<int> EnterType { get; set; }
         public Nullable<int> OrderNum { get; set; }
+        public Nullable<int> IsImg { get; set; }
     }
 }

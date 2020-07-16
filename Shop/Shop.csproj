@@ -500,7 +500,6 @@
     <Compile Include="Models\ProductCategoryAddVModel.cs" />
     <Compile Include="Models\ProductCategoryUpdateVModel.cs" />
     <Compile Include="Models\ProductCategoryVModel.cs" />
-    <Compile Include="Models\ProductVModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +585,10 @@
     <ProjectReference Include="..\MODEL\MODEL.csproj">
       <Project>{5b088e83-33d6-4557-9334-37247be7748a}</Project>
       <Name>MODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VMODEL\VMODEL.csproj">
+      <Project>{31daec2b-2b4f-4a5d-9551-9e46786d9f11}</Project>
+      <Name>VMODEL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -28,8 +28,9 @@ namespace Shop.Controllers
         public ActionResult Add(ProductVModel vModel)
         {
             Product product = vModel.Product;
-            List<ProductSku> skuList = vModel.Skus;
             List<ProductAttr> attrList = vModel.Attrs;
+            List<ProductSku> skuList = vModel.ProductSkus;
+            
             Bll.Add(product, skuList, attrList);
             return Json(new { state = true });
         }
@@ -61,7 +62,7 @@ namespace Shop.Controllers
         {
 
             Product product = vModel.Product;
-            List<ProductSku> skuList = vModel.Skus;
+            List<ProductSku> skuList = vModel.ProductSkus;
             List<ProductAttr> attrList = vModel.Attrs;
 
             Bll.Update(product, skuList, attrList);

@@ -287,9 +287,8 @@
                 data: { categoryID: id },
                 dataType: "json",
                 success: function (data) {
-                    console.log(data)
                     data.map(function (v) {
-
+                        console.log(data)
                         var sku = {}
                         sku.name = v.AttrName
                         sku.values = []
@@ -331,7 +330,7 @@
         //获取属性值
         function getAttrs(id) {
             $.ajax({
-                url: "/ProductAttrKey/GetWithCategoryID",
+                url: "/ProductAttrKey/GetWithCategoryID", 
                 type: "GET",
                 data: { categoryID: id },
                 dataType: "json",
@@ -412,7 +411,7 @@
                     })
 
                     //console.log(skuDatas)//打印规格值
-                    product.Skus = skuDatas
+                    product.ProductSkus = skuDatas
                     attrDatas = []
                     $("#attr_msg div.attr").each(function () {
                         var attr = {}

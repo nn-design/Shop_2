@@ -101,10 +101,12 @@
 
 @section js{
 
-    <script>
+<script>
+        //@Html.Raw(@Model.Category.Img)
 
         var Img='@Model.Category.Img';
-        var PID=@Model.Category.PID;
+        var PID =@Model.Category.PID;
+
         function disTreeSelect() {
 
             $("#tree").show()
@@ -164,9 +166,12 @@
                 $("#tree").show()
             }, true);
 
-            
-            $("#PID").select2('val','@Model.Category.PID')//下拉框显示值
 
+            $("#PID").select2('val', '@Model.Category.PID')//下拉框显示值
+           
+            var temp = eval("(" +@Html.Raw(@Model.Category.Img)+")")
+            console.log(temp)
+            console.log('@Html.Raw(@Model.Category.Img)')
             //设置上传插件
             $('#Img').fileinput({
                 language: 'zh',//设置语言
@@ -268,7 +273,7 @@
                 })
             })
         })
-    </script>
+</script>
 
 
 }

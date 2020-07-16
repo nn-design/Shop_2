@@ -54,7 +54,7 @@ namespace Shop.Controllers
 
         public ActionResult GetByCatecoryID(int draw, int categoryId)
         {
-            var list = atterKeyBLL.GetByCatecoryID(categoryId);
+            var list = atterKeyBLL.GetByCatecoryID(categoryId,true);
             var result = new { draw = draw, data = list };
             return Json(result);
         }

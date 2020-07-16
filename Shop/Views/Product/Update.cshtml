@@ -399,29 +399,39 @@
                     $("#Stock").val(productObj.Stock);
 
                     //2.初始化商品主图，轮播图，详情
-
+                    console.log(eval("(" + productObj.ProductMainImg+ ")"))
                     //eval()：接受一个字符串类型参数，可以将字符串转换成数组或对象，eval("()")
-                    var _ProductMainImg = eval("(" + productObj.ProductMainImg + ")")
-                    var ProductMainImgTag = ["<img src='" + _ProductMainImg[0] + "' class='file - preview - image' width=200>"]
-                    ProductMainImg.push(_ProductMainImg[0])
-                    //图片插件，上传主图
-                    $('#ProductMainImg').fileinput({
-                        language: 'zh',//设置语言
-                        allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
-                        showUpload: true,//是否显示上传按钮
-                        browseClass: "btn btn-primary",//按钮样式
-                        dropZoneEnabled: false,//是否拖拉可上传
-                        uploadUrl: "/Img/Upload",
-                        uploadAsync: true,//默认异步上传
-                        uploadExtraData: { imgType: 'ProductMainImg' },
-                        // 设置预览图片
-                        initialPreview: ProductMainImgTag
-                    });
-                    var _ProductSlideImgs = eval("(" + productObj.ProductSlideImgs + ")")
+
+                    eval("(" + productObj.ProductMainImg + ")").find(function (v) {
+                       
+                        var _ProductMainImg = v.Url
+                        console.log(_ProductMainImg)
+                        var ProductMainImgTag = ["<img src='" + _ProductMainImg + "' class='file - preview - image' width=200>"]
+                        ProductMainImg.push(_ProductMainImg)
+
+                        $('#ProductMainImg').fileinput({
+                            language: 'zh',//设置语言
+                            allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
+                            showUpload: true,//是否显示上传按钮
+                            browseClass: "btn btn-primary",//按钮样式
+                            dropZoneEnabled: false,//是否拖拉可上传
+                            uploadUrl: "/Img/Upload",
+                            uploadAsync: true,//默认异步上传
+                            uploadExtraData: { imgType: 'ProductMainImg' },
+                            // 设置预览图片
+                            initialPreview: ProductMainImgTag
+                        });
+                    })
+
+                    
+                    
+                    var _ProductSlideImgs = eval("(" + productObj.ProductSlideImgs+")")
+                    console.log(_ProductSlideImgs)
                     var ProductSlideImgsTag = []
-                    _ProductSlideImgs.map(function (v){
-                        ProductSlideImgsTag.push("<img src='" + v + "' class='file - preview - image' width=200>")
-                        ProductSlideImgs.push(v)
+                    _ProductSlideImgs.map(function (v) {
+                        console.log(v.Url)
+                        ProductSlideImgsTag.push("<img src='" + v.Url + "' class='file - preview - image' width=200>")
+                        ProductSlideImgs.push(v.Url)
                     })
 
 
@@ -440,12 +450,16 @@
 
                     });
 
+                    
+
 
                     var _ProductDetail = eval("(" + productObj.ProductDetail + ")")
+                    console.log(_ProductDetail)
                     var ProductDetailTag = []
                     _ProductDetail.map(function (v) {
-                        ProductDetailTag.push("<img src='" + v + "' class='file - preview - image' width=200>")
-                        ProductDetail.push(v)
+                        console.log(v.Url)
+                        ProductDetailTag.push("<img src='" + v.Url + "' class='file - preview - image' width=200>")
+                        ProductDetail.push(v.Url)
                     })
                     //图片插件,上传详情图
                     $('#ProductDetail').fileinput({
@@ -626,7 +640,7 @@
                     })
 
                     //console.log(skuDatas)//打印规格值
-                    product.Skus = skuDatas
+                    product.ProductSkus = skuDatas
                     attrDatas = []
                     $("#attr_msg div.attr").each(function () {
                         var attr = {}

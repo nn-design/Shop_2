@@ -8,14 +8,17 @@ using DAL;
 using IBLL;
 using IDAL;
 using System.Data.Entity;
+using Shop.Models;
 
 namespace BLL
 {
-    public class ProductBLL:BaseBLL<Product,ProductDAL>,IProductBLL
+    public class ProductBLL : BaseBLL<Product, ProductDAL>, IProductBLL
     {
         IProductSkuDAL skuDAL = new ProductSkuDAL();
         IProductAttrDAL attrDAL = new ProductAttrDAL();
-        public  int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)
+        IProductAttrKeyBLL attrBLL = new ProductAttrKeyBLL();
+
+        public int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)
         {
             int result = 0;
             var tran = dal.BeginTran();
@@ -45,7 +48,7 @@ namespace BLL
                 //throw ex.InnerException;
                 tran.Rollback();
             }
-            
+
             return result;
         }
         public override int DeLete(int id)
@@ -76,6 +79,20 @@ namespace BLL
             skus = skuDAL.Search(x => x.ProductID == id);
             attrs = attrDAL.Search(x => x.ProuductID == id);
             return product;
+        }
+        //小程序商品详情接口
+        public ProductVModel GetFullInfoByID(int id)
+        {
+            var product = dal.GetOne(id);
+            var skus = attrBLL.GetByCatecoryID(product.ProductCategoryID.Value, true);
+            var productSkus = skuDAL.Search(x => x.ProductID == product.ID);
+
+            return new ProductVModel()
+            {
+                Product = product,
+                Skus = skus,
+                ProductSkus = productSkus
+            };
         }
 
         public int Update(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)

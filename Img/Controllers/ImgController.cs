@@ -15,13 +15,21 @@ namespace Img.Controllers
 {
     public class ImgController : Controller
     {
+        public class ImgInfo
+        {
+            public string Url { get; set; }
+            public string CloudUrl { get; set; }
+        }
+
         string ak = ConfigurationManager.AppSettings["AccessKey"];
         string sk = ConfigurationManager.AppSettings["SecretKey"];
         string qiNiuScope = ConfigurationManager.AppSettings["QiNiuScope"];
         // GET: Img
         public ActionResult Upload()
         {
-            List<string> fileNames = new List<string>();
+            //List<ImgInfo> ImageList = new List<ImgInfo>();
+
+            List<ImgInfo> fileNames = new List<ImgInfo>();
             var files = Request.Files;
             for (int i = 0; i < files.Count; i++)
             {
@@ -99,7 +107,17 @@ namespace Img.Controllers
                 FormUploader fu = new FormUploader(config);
                 HttpResult result = fu.UploadData(bytes, fullPath, token,null);
 
-                fileNames.Add("http://localhost:56568"+fullPath);
+                //var URL = "http://localhost:56568" + fullPath;
+                var CloudURL = "http://myshop.products.nmzyy.cn/" + fullPath;
+
+                ImgInfo imgInfo = new ImgInfo()
+                {
+                    Url = "http://localhost:56568" + fullPath,
+                    CloudUrl = CloudURL
+                };
+                fileNames.Add(imgInfo);
+                //fileNames.Add("http://localhost:56568"+fullPath);
+
 
             }
             return Json(fileNames);
