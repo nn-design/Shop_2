@@ -51,9 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
-    <Compile Include="PorductSkuImgM.cs">
-      <DependentUpon>Shop.tt</DependentUpon>
-    </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>
@@ -73,6 +70,9 @@
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductSku.cs">
+      <DependentUpon>Shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductSkuImg.cs">
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

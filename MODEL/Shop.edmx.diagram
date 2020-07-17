@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="ShopModel.ProductSku" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShopModel.ProductAttr" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShopModel.ProductBrand" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShopModel.PorductSkuImgM" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ShopModel.ProductSkuImg" Width="1.5" PointX="3.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

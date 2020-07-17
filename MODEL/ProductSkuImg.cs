@@ -12,10 +12,12 @@ namespace MODEL
     using System;
     using System.Collections.Generic;
     
-    public partial class PorductSkuImgM:BaseModel
+    public partial class ProductSkuImg:BaseModel
     {
         
-        public string AttrValue { get; set; }
-        public Nullable<int> ProductAttrKeyID { get; set; }
+        public string SkuImg { get; set; }
+        public Nullable<int> ProductID { get; set; }
+        public string SkuName { get; set; }
+        public string SkuValue { get; set; }
     }
 }
