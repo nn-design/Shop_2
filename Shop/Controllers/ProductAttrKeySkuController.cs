@@ -31,6 +31,7 @@ namespace Shop.Controllers
                 OrderNum = productAttrKeyVModel.OrderNum,
                 EnterType = productAttrKeyVModel.EnterType,
                 IsSku = 1,
+                IsImg = productAttrKeyVModel.IsImg,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };
             atterKeyBLL.Add(productAttrKey);
@@ -79,6 +80,8 @@ namespace Shop.Controllers
                 OrderNum = productAttrKeyVModel.OrderNum,
                 EnterType = productAttrKeyVModel.EnterType,
                 IsSku = 1,
+
+                IsImg = productAttrKeyVModel.IsImg,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };
 
@@ -123,6 +126,7 @@ namespace Shop.Controllers
                 vModel.ID = item.ID;
                 vModel.AttrName = item.AttrName;
                 vModel.EnterType = item.EnterType;
+                vModel.IsImg = item.IsImg;
                 vModel.AttrValues = new List<string>();
                 //查询attrvalue表数据
                 var attrvalus = attrValueBLL.Search(x => x.ProductAttrKeyID == item.ID);
@@ -135,6 +139,6 @@ namespace Shop.Controllers
             }
             return Json(vList, JsonRequestBehavior.AllowGet);
         }
-        
+
     }
 }

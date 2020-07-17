@@ -559,6 +559,7 @@
     <Folder Include="Upload\Product\BrandLogo\" />
     <Folder Include="Upload\Product\BrandSpecialImg\" />
     <Folder Include="Upload\Product\CategoryImages\" />
+    <Folder Include="Upload\Product\IsRelectImg\" />
     <Folder Include="Upload\Product\ProductDetail\" />
     <Folder Include="Upload\Product\ProductMainImg\" />
     <Folder Include="Upload\Product\ProductSlideImgs\" />

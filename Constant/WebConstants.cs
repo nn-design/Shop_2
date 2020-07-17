@@ -17,6 +17,8 @@ namespace Constant
             ImgPathDicts.Add("ProductSlideImgs", "/Upload/Product/ProductSlideImgs/");
             ImgPathDicts.Add("ProductDetail", "/Upload/Product/ProductDetail/");
 
+            ImgPathDicts.Add("IsRelectImg", "/Upload/Product/IsRelectImg/");
+
             ImgPathDicts.Add("BrandLogo", "/Upload/Product/BrandLogo/");
             ImgPathDicts.Add("BrandSpecialImg", "/Upload/Product/BrandSpecialImg/");
 

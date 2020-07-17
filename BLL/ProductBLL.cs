@@ -18,7 +18,9 @@ namespace BLL
         IProductAttrDAL attrDAL = new ProductAttrDAL();
         IProductAttrKeyBLL attrBLL = new ProductAttrKeyBLL();
 
-        public int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList)
+        IProductSkuImgDAL skuImgDAL = new ProductSkuImgDAL();
+
+        public int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList, List<ProductSkuImg> skuImgs)
         {
             int result = 0;
             var tran = dal.BeginTran();
@@ -34,11 +36,17 @@ namespace BLL
                     sku.ProductID = product.ID;
                     skuDAL.Add(sku);
                 }
-                //2.插入productAttr表
+                //3.插入productAttr表
                 foreach (var attr in attrList)
                 {
                     attr.ProuductID = product.ID;
                     attrDAL.Add(attr);
+                }
+                //4.插入ProductSkuImg表
+                foreach (var skuImg in skuImgs)
+                {
+                    skuImg.ProductID = product.ID;
+                    skuImgDAL.Add(skuImg);
                 }
                 result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
                 tran.Commit();//总提交

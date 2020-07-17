@@ -10,7 +10,7 @@ namespace IBLL
 {
     public interface IProductBLL:IBaseBLL<Product>
     {
-        int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList);
+        int Add(Product product, List<ProductSku> skuList, List<ProductAttr> attrList,List<ProductSkuImg> skuImgs);
         Product GetOne(int id, out List<ProductAttr> attrs, out List<ProductSku> skus);
         ProductVModel GetFullInfoByID(int id);
         

@@ -54,6 +54,7 @@
     <Compile Include="ProductCategoryDAL.cs" />
     <Compile Include="ProductDAL.cs" />
     <Compile Include="ProductSkuDAL.cs" />
+    <Compile Include="ProductSkuImgDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
