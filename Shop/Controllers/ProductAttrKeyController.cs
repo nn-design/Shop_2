@@ -32,6 +32,7 @@ namespace Shop.Controllers
                 OrderNum = productAttrKeyVModel.OrderNum,
                 EnterType = productAttrKeyVModel.EnterType,
                 IsSku = 0,
+                IsImg= productAttrKeyVModel.IsImg,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };
             atterKeyBLL.Add(productAttrKey);
@@ -79,6 +80,7 @@ namespace Shop.Controllers
                 AttrName = productAttrKeyVModel.AttrName,
                 OrderNum = productAttrKeyVModel.OrderNum,
                 EnterType = productAttrKeyVModel.EnterType,
+                IsImg= productAttrKeyVModel.IsImg,
                 IsSku = 0,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };

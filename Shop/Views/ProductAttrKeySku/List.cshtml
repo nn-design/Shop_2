@@ -12,12 +12,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h4>商品规格列表</h4>
+                <h4>商品属性列表</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">首页</a></li>
-                    <li class="breadcrumb-item active">商品规格</li>
+                    <li class="breadcrumb-item active">商品属性</li>
                 </ol>
             </div>
         </div>
@@ -46,6 +46,7 @@
                                         <th>序号</th>
                                         <th>属性名称</th>
                                         <th>录入方式</th>
+                                        <th>是否关联图片</th>
                                         <th>排序号</th>
                                         <th>操作</th>
                                     </tr>
@@ -73,7 +74,7 @@
                 <form class="form-horizontal">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="AttrName" class="col-sm-3 col-form-label">规格名称：</label>
+                            <label for="AttrName" class="col-sm-3 col-form-label">属性名称：</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="AttrName" name="AttrName" placeholder="请输入属性名称">
                             </div>
@@ -104,13 +105,36 @@
 
                         </div>
                         <div class="form-group row">
-                            <label for="Name" class="col-sm-3 col-form-label">规格值列表：</label>
+                            <label for="Name" class="col-sm-3 col-form-label">属性值列表：</label>
                             <div class="col-sm-9" id="attrValues">
                                 <button type="button" id="alertAddValue" class="btn btn-xs btn-primary" style="margin-bottom:16px" value="">添加属性值</button>
 
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="Name" class="col-sm-3 col-form-label">是否关联图片：</label>
+                            <div class="col-sm-9" id="IsImg">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radio1" name="isRelactImg" checked="" value="1">
+                                            <label for="radio1" style="font-weight:normal;">
+                                                是
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="radio" id="radio2" name="isRelactImg" checked="" value="2">
+                                            <label for="radio2" style="font-weight:normal;">
+                                                否
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
                         <div class="form-group row">
                             <label for="OrderNum" class="col-sm-3 col-form-label">排序号：</label>
                             <div class="col-sm-9">
@@ -177,38 +201,40 @@
             if (!delID) {
                 return;
             }
-        //发起ajax请求
-        $.ajax({
-            type: "POST",
-            url: "/ProductAttrKeySku/Delete",
-            cache: false,//禁用缓存
-            data: { id: delID },//传入组装的参数
-            dataType: "json",
-            success: function (result) {
-                if (result.state) {
+            //发起ajax请求
+            $.ajax({
+                type: "POST",
+                url: "/ProductAttrKey/Delete",
+                cache: false,//禁用缓存
+                data: { id: delID },//传入组装的参数
+                dataType: "json",
+                success: function (result) {
+                    if (result.state) {
 
-                    toastr.success("删除成功")
-                    $("#del-modal").modal("hide")//模态窗口关掉
-                    //刷新dataTables
-                    $('#table').DataTable().ajax.reload();
+                        toastr.success("删除成功")
+                        $("#del-modal").modal("hide")//模态窗口关掉
+                        //刷新dataTables
+                        $('#table').DataTable().ajax.reload();
+                    }
+
                 }
-
-            }
-        });
+            });
 
         }
 
         //点击添加按钮显示弹出框
         function alertAddGuiGeModal() {
-            opreateFlag=1
+            opreateFlag = 1
 
             $("#AddGuiGe-modal").modal()
             //修改标题
-            $("#modal-title").text("规格添加")
+            $("#modal-title").text("属性添加")
 
             $("#AttrName").val("")
             $("#OrderNum").val("")
             $("input[name='r1'][value='1']").prop("checked", "checked");
+            
+            $("input[name='isRelactImg'][value='1']").prop("checked", "checked");
             $("#attrValues div:gt(0)").remove();
 
         }
@@ -219,12 +245,12 @@
             //显示弹出框
             $("#AddGuiGe-modal").modal()
             //修改标题。jquery获取（设置）div，span，和h[1-6]标签的内容用text方法，获取（设置）input，select标签的内容用val方法
-            $("#modal-title").text("规格修改")
+            $("#modal-title").text("属性修改")
             //从后台获取数据并显示出来
             //发送ajax请求
             $.ajax({
                 // 请求的地址
-                url: "/ProductAttrKeySku/GetOne",
+                url: "/ProductAttrKey/GetOne",
                 // 发起请求的方式
                 type: "GET",
                 cache: false,
@@ -236,6 +262,7 @@
                 success: function (result) {
                     $("#AttrName").val(result.attrKey.AttrName)
                     $("#OrderNum").val(result.attrKey.OrderNum)
+                    $("input[name='r1'][value=" + result.attrKey.EnterType + "]").prop("checked", "checked");
                     $("input[name='r1'][value=" + result.attrKey.EnterType + "]").prop("checked", "checked");
                     $("#attrValues div:gt(0)").remove();
 
@@ -276,6 +303,8 @@
                 var AttrName = $("#AttrName").val()
                 var OrderNum = $("#OrderNum").val()
                 var EnterType = $("input[name='r1']:checked").val()//获取radio的值
+                
+                var IsImg = $("input[name='isRelactImg']:checked").val()//获取radio的值
                 //获取属性值
                 var attrValues = []
 
@@ -290,15 +319,16 @@
                     OrderNum: OrderNum,
                     EnterType: EnterType,
                     AttrValues: attrValues,
+                    IsImg: IsImg,
                     ProductCategoryID: ProductCategoryID
                 }
 
-                var url = "/ProductAttrKeySku/Add"
+                var url = "/ProductAttrKey/Add"
                 var msg = "添加成功";
                 if (opreateFlag == 2) {
                     data.ID = editId;
                     msg = "修改成功";
-                    url = "/ProductAttrKeySku/Edit"
+                    url = "/ProductAttrKey/Edit"
                 }
 
                 //发送ajax请求
@@ -359,7 +389,7 @@
                     //ajax请求数据
                     $.ajax({
                         type: "POST",
-                        url: "/ProductAttrKeySku/GetByCatecoryID",
+                        url: "/ProductAttrKey/GetByCatecoryID",
                         cache: false,//禁用缓存
                         data: param,//传入组装的参数
                         dataType: "json",
@@ -383,6 +413,16 @@
                             }
                             else {
                                 return "下拉选择"
+                            }
+                        }
+                    },
+                    {
+                        "data": function (data) {
+                            if (data.IsImg == "1") {
+                                return "是"
+                            }
+                            else {
+                                return "否"
                             }
                         }
                     },

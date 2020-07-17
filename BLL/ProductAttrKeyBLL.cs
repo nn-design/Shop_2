@@ -34,6 +34,8 @@ namespace BLL
                 vModel.ID = item.ID;
                 vModel.AttrName = item.AttrName;
                 vModel.EnterType = item.EnterType;
+                vModel.OrderNum = item.OrderNum;
+                vModel.IsImg = item.IsImg;
                 vModel.AttrValues = new List<string>();
                 var attrvalues = attrValueDal.Search(x => x.ProductAttrKeyID == item.ID);
                 foreach (var valueItem in attrvalues)
