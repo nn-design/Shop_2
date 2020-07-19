@@ -11,7 +11,7 @@ namespace IBLL
     public interface IProductAttrKeyBLL:IBaseBLL<ProductAttrKey>
     {
         //List<ProductAttrKeyVModel> GetByCatecoryID(int categoryID, bool isSku);
-
+        List<ProductAttrKey> GetByCategoryID(int categoryId);
         List<ProductAttrKeyVModel> GetByCatecoryID(int categoryID, bool isSku);
         int Update(ProductAttrKey attrKey, List<ProductAttrValue> attrValues);
     }

@@ -204,7 +204,7 @@
             //发起ajax请求
             $.ajax({
                 type: "POST",
-                url: "/ProductAttrKey/Delete",
+                url: "/ProductAttrKeySku/Delete",
                 cache: false,//禁用缓存
                 data: { id: delID },//传入组装的参数
                 dataType: "json",
@@ -250,7 +250,7 @@
             //发送ajax请求
             $.ajax({
                 // 请求的地址
-                url: "/ProductAttrKey/GetOne",
+                url: "/ProductAttrKeySku/GetOne",
                 // 发起请求的方式
                 type: "GET",
                 cache: false,
@@ -389,7 +389,7 @@
                     //ajax请求数据
                     $.ajax({
                         type: "POST",
-                        url: "/ProductAttrKey/GetByCatecoryID",
+                        url: "/ProductAttrKeySku/GetByCatecoryID",
                         cache: false,//禁用缓存
                         data: param,//传入组装的参数
                         dataType: "json",

@@ -20,11 +20,10 @@ namespace BLL
 
         public List<ProductAttrKeyVModel> GetByCatecoryID(int categoryID, bool isSku)
         {
-            //var list = atterKeyBLL.Search(x => x.ProductCategoryID == categoryID && x.IsSku == 0);
-            Expression<Func<ProductAttrKey, bool>> expression = x => x.ProductCategoryID == categoryID && x.IsSku == 1;
+            Expression<Func<ProductAttrKey, bool>> expression = x => x.ProductCategoryID == categoryID && x.IsSku == 0;
             if (isSku)
             {
-                expression = x => x.ProductCategoryID == categoryID && x.IsSku == 0;
+                expression = x => x.ProductCategoryID == categoryID && x.IsSku == 1;
             }
             var list = dal.Search(expression);
             List<ProductAttrKeyVModel> vlist = new List<ProductAttrKeyVModel>();
@@ -110,5 +109,9 @@ namespace BLL
             throw new NotImplementedException();
         }
 
+        public List<ProductAttrKey> GetByCategoryID(int categoryId)
+        {
+            return dal.GetByCatecoryID(categoryId);
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Shop.Controllers
                 OrderNum = productAttrKeyVModel.OrderNum,
                 EnterType = productAttrKeyVModel.EnterType,
                 IsSku = 1,
-                IsImg = productAttrKeyVModel.IsImg,
+                IsImg = 0,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };
             atterKeyBLL.Add(productAttrKey);
@@ -52,10 +52,41 @@ namespace Shop.Controllers
             return Json(new { state = true, msg = "添加成功" });
 
         }
+        [HttpGet]
+        public ActionResult GetByCategoryID(int categoryID)
+        {
+            ////查询attrkey表数据
+            //var list = atterKeyBLL.Search(x => x.ProductCategoryID == categoryID && x.IsSku == 1);
+
+            //List<ProductAttrKeyVModel> vList = new List<ProductAttrKeyVModel>();
+            //foreach (var item in list)
+            //{
+            //    var vModel = new ProductAttrKeyVModel();
+            //    vModel.ID = item.ID;
+            //    vModel.AttrName = item.AttrName;
+            //    vModel.EnterType = item.EnterType;
+            //    vModel.IsImg = item.IsImg;
+            //    vModel.AttrValues = new List<string>();
+            //    //查询attrvalue表数据
+            //    var attrvalus = attrValueBLL.Search(x => x.ProductAttrKeyID == item.ID);
+            //    foreach (var valueItem in attrvalus)
+            //    {
+            //        vModel.AttrValues.Add(valueItem.AttrValue);
+            //    }
+            //    //将attrkey表数据，attrvalue表数据放到vList
+            //    vList.Add(vModel);
+            //}
+            //return Json(vList, JsonRequestBehavior.AllowGet);
+
+
+            var vList = atterKeyBLL.GetByCatecoryID(categoryID, true);
+            return Json(vList, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult GetByCatecoryID(int draw, int categoryId)
         {
-            var list = atterKeyBLL.GetByCatecoryID(categoryId,true);
+            var list = atterKeyBLL.GetByCategoryID(categoryId);
+            list = list.Where(x => x.IsSku == 1).ToList();
             var result = new { draw = draw, data = list };
             return Json(result);
         }
@@ -81,7 +112,7 @@ namespace Shop.Controllers
                 EnterType = productAttrKeyVModel.EnterType,
                 IsSku = 1,
 
-                IsImg = productAttrKeyVModel.IsImg,
+                IsImg = 0,
                 ProductCategoryID = productAttrKeyVModel.ProductCategoryID
             };
 
@@ -113,32 +144,7 @@ namespace Shop.Controllers
             int result = atterKeyBLL.DeLete(id);
             return Json(new { state = result > 0 ? true : false });
         }
-        [HttpGet]
-        public ActionResult GetByCategoryID(int categoryID)
-        {
-            //查询attrkey表数据
-            var list = atterKeyBLL.Search(x => x.ProductCategoryID == categoryID && x.IsSku == 1);
-
-            List<ProductAttrKeyVModel> vList = new List<ProductAttrKeyVModel>();
-            foreach (var item in list)
-            {
-                var vModel = new ProductAttrKeyVModel();
-                vModel.ID = item.ID;
-                vModel.AttrName = item.AttrName;
-                vModel.EnterType = item.EnterType;
-                vModel.IsImg = item.IsImg;
-                vModel.AttrValues = new List<string>();
-                //查询attrvalue表数据
-                var attrvalus = attrValueBLL.Search(x => x.ProductAttrKeyID == item.ID);
-                foreach (var valueItem in attrvalus)
-                {
-                    vModel.AttrValues.Add(valueItem.AttrValue);
-                }
-                //将attrkey表数据，attrvalue表数据放到vList
-                vList.Add(vModel);
-            }
-            return Json(vList, JsonRequestBehavior.AllowGet);
-        }
+       
 
     }
 }
