@@ -30,9 +30,9 @@ namespace Shop.Controllers
             Product product = vModel.Product;
             List<ProductAttr> attrList = vModel.Attrs;
             List<ProductSku> skuList = vModel.ProductSkus;
-            List<ProductSkuImg> skuImgs = vModel.ProductSkuImg;
+            //List<ProductSkuImg> skuImgs = vModel.ProductSkuImg;
 
-            Bll.Add(product, skuList, attrList, skuImgs);
+            Bll.Add(product, skuList, attrList);
             return Json(new { state = true });
         }
         [HttpPost]

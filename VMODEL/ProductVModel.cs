@@ -15,6 +15,6 @@ namespace Shop.Models
 
         public List<ProductAttr> Attrs { get; set; }
 
-        public List<ProductSkuImg> ProductSkuImg { get; set; }
+        //public List<ProductSkuImg> ProductSkuImg { get; set; }
     }
 }

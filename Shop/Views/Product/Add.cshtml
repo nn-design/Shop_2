@@ -250,9 +250,8 @@
                 $('#IsRelectImg' + v.value + '').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
 
                     //获取服务端返回数据
-                    console.log(data.response)
-                    v.skuImgurl = data.response[0]
-                    console.log(v)
+
+                    v.img = data.response[0]
                 });
             })
             
@@ -491,19 +490,19 @@
                    
                     product.Attrs = attrDatas
 
-                    //规格图片
-                    var ProductSkuImgs = []
-                    skuValuesList.map(function (v) {
-                        var skuImages = {}
-                        skuImages.SkuImg = JSON.stringify(v.skuImgurl)
-                        skuImages.SkuName = v.name
-                        skuImages.SkuValue = v.value
+                    ////规格图片
+                    //var ProductSkuImgs = []
+                    //skuValuesList.map(function (v) {
+                    //    var skuImages = {}
+                    //    skuImages.SkuImg = JSON.stringify(v.skuImgurl)
+                    //    skuImages.SkuName = v.name
+                    //    skuImages.SkuValue = v.value
                        
-                        ProductSkuImgs.push(skuImages)
-                    })
+                    //    ProductSkuImgs.push(skuImages)
+                    //})
 
                    
-                    product.ProductSkuImg = ProductSkuImgs
+                    //product.ProductSkuImg = ProductSkuImgs
                     console.log(product)
 
                     $.ajax({

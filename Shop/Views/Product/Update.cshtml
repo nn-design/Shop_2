@@ -117,7 +117,14 @@
                 </div>
             </div>
         </div>
+        <div class="form-group row">
+            <label for="Name" class="col-sm-2 col-form-label">关联图片：</label>
+            <div class="col-sm-10">
+                <div id="skuImg" style="padding:20px; margin-bottom:15px; background-color:rgb(244,246,249);border:1px solid #e9e9e9; border-radius:4px">
 
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="Name" class="col-sm-2 col-form-label">商品属性：</label>
             <div class="col-sm-10">
@@ -138,13 +145,16 @@
     <script src="/Statics/adminlte/plugins/wizard/js/jquery.steps.js"></script>
 
     <script>
+        var imgUploadUrl = "http://localhost:56568/Img/Upload"
         $.getUrlParam = function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
         }
-        var ProductMainImg = [], ProductSlideImgs = [], ProductDetail = [], ProductCategoryID
+        var ProductMainImg = [], ProductSlideImgs = [], ProductDetail = [], ProductCategoryID,_IsRelectImg=[]
         var skuArrays = [];
+        var skuList = [];
+        var skuValuesList = [];
         results = [];
         result = [];
         //[
@@ -201,6 +211,93 @@
                 html += "<td><input type=\"text\"  class=\"SkuNum form-control\"/></td>"
                 html += "</tr>"
                 $("#sku-table tbody").append(html)
+            })
+
+
+            //规格图片
+            skuList.map(function (v) {
+                console.log(v)
+                skuArrays.map(function (_v) {
+                    console.log(_v)
+                    if (v.AttrName == _v.name && v.IsImg == 1) {
+                        skuValuesList = _v.values
+
+                    }
+                })
+            })
+            console.log("skuValuesList" + skuValuesList)
+            var html = "<div>";
+            skuValuesList.map(function (v) {
+                html += "<div class=\"form-group row\">" +
+
+                    "<div class=\"col-sm-10\">" + v.value + "" +
+                    "<input type=\"file\" id=\"IsRelectImg" + v.value + "\"/>" +
+                    "</div>" +
+                    "</div>"
+
+            })
+            html += "</div>"
+            $("#skuImg").empty();
+            $("#skuImg").append(html)
+            skuValuesList.map(function (v) {
+                $('#IsRelectImg' + v.value + '').fileinput({
+                    language: 'zh',//设置语言
+                    allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
+                    showUpload: true,//是否显示上传按钮
+                    browseClass: "btn btn-primary",//按钮样式
+                    dropZoneEnabled: false,//是否拖拉可上传
+                    uploadUrl: imgUploadUrl,
+                    uploadAsync: true,//默认异步上传
+                    uploadExtraData: { imgType: 'IsRelectImg' },
+                });
+                //图片上传成功的回调函数
+                $('#IsRelectImg' + v.value + '').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
+
+                    //获取服务端返回数据
+
+                    v.img = data.response[0]
+                    //skuArrays.push(v.img)
+                });
+            })
+
+
+        }
+
+        function initSkuImg() {
+            $("#skuImg").empty()
+            skuArrays.map(function (v) {
+                if (v.IsImg == 1) {//需要关联图片
+                    
+                    v.values.map(function (_v) {
+                        var html = "<div class=\"form-group row\">" +
+
+                            "<div class=\"col-sm-10\">" + _v.value + "" +
+                            "<input type=\"file\" id=\"IsRelectImg" + _v.value + "\"/>" +
+                            "</div>" +
+                            "</div>"
+                        $("#skuImg").append(html)
+
+                        $('#IsRelectImg' + _v.value + '').fileinput({
+                            language: 'zh',//设置语言
+                            allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
+                            showUpload: true,//是否显示上传按钮
+                            browseClass: "btn btn-primary",//按钮样式
+                            dropZoneEnabled: false,//是否拖拉可上传
+                            uploadUrl: imgUploadUrl,
+                            uploadAsync: true,//默认异步上传
+                            uploadExtraData: { imgType: 'IsRelectImg' },
+                            // 设置预览图片
+                            initialPreview: ["<img src='" + _v.img.Url + "' class='file-preview-image' width=200></img>"]
+                        });
+                        //图片上传成功的回调函数
+                        $('#IsRelectImg' + _v.value + '').on('fileuploaded', function (event, data, previewId, index) {//异步上传成功结果
+
+                            //获取服务端返回数据
+                            _v.img = data.response[0]
+                        });
+
+                    })
+                }
             })
         }
 
@@ -403,7 +500,7 @@
                     //eval()：接受一个字符串类型参数，可以将字符串转换成数组或对象，eval("()")
 
                     eval("(" + productObj.ProductMainImg + ")").find(function (v) {
-                       
+                        console.log(v.Url)
                         var _ProductMainImg = v.Url
                         console.log(_ProductMainImg)
                         var ProductMainImgTag = ["<img src='" + _ProductMainImg + "' class='file - preview - image' width=200>"]
@@ -449,10 +546,7 @@
                         initialPreview: ProductSlideImgsTag
 
                     });
-
                     
-
-
                     var _ProductDetail = eval("(" + productObj.ProductDetail + ")")
                     console.log(_ProductDetail)
                     var ProductDetailTag = []
@@ -565,6 +659,7 @@
                         results.push(eval("(" + v.ProductSku1 + ")"))
                     })
 
+                   
                     //5.初始化属性信息
 
                     $("#attr_msg div.attr").each(function () {
@@ -593,6 +688,12 @@
                         
                     })
 
+                    //6 初始话skuImg
+
+                    skuArrays = eval("(" + productObj.ProductSkuValues + ")")
+
+                    console.log(skuArrays)
+                    initSkuImg();
                 }
             })
         }
@@ -758,6 +859,7 @@
 
                 getSkus(id)
                 getAttrs(id)
+
 
             })
             //初始化商品信息
