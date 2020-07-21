@@ -598,7 +598,9 @@
 
                                         addSku1("sku-" + (attrName).trim() + "-div", attrName, _v.value);
 
-                                        var checkbox = $("#sku-checkbox-" + _v.value)
+                                        //var checkbox = $("#sku-checkbox-" + _v.value)
+                                        var checkbox = $("input[type='checkbox'][id='sku-checkbox-" + _v.value + "']")
+
                                         checkbox.prop("checked", true);//设为选中
                                         checkbox.trigger("change")//触发change事件，将skuValue添加到skuArrays数组中
 
