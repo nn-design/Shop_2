@@ -53,7 +53,7 @@ namespace Shop.Controllers
             return Json(new { state=true,msg="添加成功"});
         }
        
-
+        //[LoginCheck]
         public ActionResult List()
         {
             return View();

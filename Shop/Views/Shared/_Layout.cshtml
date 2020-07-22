@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- 提示Toast -->
     <link href="/Statics/adminlte/plugins/toastr/toastr.min.css" rel="stylesheet" />
 
-    @RenderSection("css",false)
+    @RenderSection("css", false)
 </head>
 <body class="hold-transition sidebar-mini text-sm">
     <div class="wrapper">
@@ -48,8 +48,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <li  class="nav-item dropdown">
+                    <a href="/Login/Logout" class="nav-link">
+                        退出
+                    </a>
+                </li>
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
+
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>
                         <span class="badge badge-danger navbar-badge">3</span>
