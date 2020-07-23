@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseBLL.cs" />
+    <Compile Include="IAdminBLL.cs" />
     <Compile Include="IProductAttrKeyBLL.cs" />
     <Compile Include="IProductAttrValueBLL.cs" />
     <Compile Include="IProductBLL.cs" />

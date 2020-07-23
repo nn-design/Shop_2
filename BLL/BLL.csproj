@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminBLL.cs" />
     <Compile Include="BaseBLL.cs" />
     <Compile Include="ProductAttrKeyBLL.cs" />
     <Compile Include="ProductAttrValueBLL.cs" />

@@ -64,7 +64,7 @@ namespace DAL
         }
         public virtual T GetOne(int id)
         {
-            return entities.Set<T>().First(x=>x.ID==id);
+            return entities.Set<T>().FirstOrDefault(x=>x.ID==id);
         }
 
         public virtual void Update(T model)
