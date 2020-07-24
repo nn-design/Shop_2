@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Shop.Models
 {
@@ -32,7 +33,11 @@ namespace Shop.Models
         /// <returns></returns>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return httpContext.Session["user"] != null;
+            //Session
+            //return httpContext.Session["user"] != null;
+
+            //Cookies
+            return httpContext.Request.Cookies[FormsAuthentication.FormsCookieName] != null;
         }
         /// <summary>
         /// 验证未通过执行的方法

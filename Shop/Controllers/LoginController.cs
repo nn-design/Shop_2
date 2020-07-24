@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using BLL;
 using COMMON;
 using IBLL;
@@ -35,7 +36,25 @@ namespace Shop.Controllers
             if (result.Count==1)
             {
                 // 将用户信息写入session容器中
-                Session["user"] = result[0];
+                //Session["user"] = result[0];
+
+                //声明一个cookie对象
+                //HttpCookie cookie = new HttpCookie("user");
+                //cookie.Value = result[0].ToString();
+                //Response.Cookies.Add(cookie);
+
+                FormsAuthenticationTicket Ticket = new FormsAuthenticationTicket(
+                   1,
+                   "user",
+                   DateTime.Now,
+                   DateTime.Now.AddMinutes(20),//cookie的过期时间
+                   false,//设置持久性，一般为false
+                   result[0].Name
+                  );
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(Ticket));
+           
+                Response.Cookies.Add(cookie);
+
 
                 return Redirect("/Product/list");
             }
