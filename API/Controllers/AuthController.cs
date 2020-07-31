@@ -13,6 +13,10 @@ using Newtonsoft.Json.Linq;
 using IBLL;
 using BLL;
 using MODEL;
+using JWT.Algorithms;
+using JWT;
+using JWT.Serializers;
+using System.Configuration;
 
 namespace API.Controllers
 {
@@ -27,6 +31,11 @@ namespace API.Controllers
         }
         string appId = "wxb811562a9650fd58";
         string appSecret = "0db1106353373facd52d64c26793a3b9";
+        // 自定义秘钥
+        // jwt 的生成和解析都需要使用
+        string secret = ConfigurationManager.AppSettings["JWTSecret"].ToString();
+
+
         [Route("api/auth/getToken")]
         [HttpPost]
         public ResponsMessage<string> GetToken(MemberVModel memberVModel)
@@ -35,7 +44,7 @@ namespace API.Controllers
             //c# 6.0字符串插值
             string url = $"https://api.weixin.qq.com/sns/jscode2session?appid={appId}&secret={appSecret}&js_code={memberVModel.code}&grant_type=authorization_code";
             // 服务端发起http请求（爬虫）
-            HttpWebRequest request =(HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             //发起请求，返回一个http响应对象HttpWebRequest
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -57,9 +66,9 @@ namespace API.Controllers
             //2、根据openid检测数据库是否包含用户，没有则要将用户添加到数据库中
             //判断数据库中是否存在该用户（根据openid）查询
             //List<Member> list = new List<Member>();
-             var list = Bll.Search(x => x.OpenId == openid);
+            var list = Bll.Search(x => x.OpenId == openid);
             //如果没有，使用ef往member表中添加用户数据
-            if (list.Count==0)
+            if (list.Count == 0)
             {
                 Member member = new Member();
                 member = memberVModel.userInfo;
@@ -67,27 +76,49 @@ namespace API.Controllers
                 Bll.Add(member);
             }
             // 3、生成token（最常用两种方式：md5,jwt）
-            string yan = "@!~#$%^&$$@&";
-            string time = DateTime.Now.ToString("yyyyMMddHHmmssfffff");
-            string guid = Guid.NewGuid().ToString("N");
-            string random = new Random().Next(10000, 99999).ToString();
-            string nickName = memberVModel.userInfo.NickName;
-            string str = yan + time + guid + random + nickName;
-            string token = Md5Helper.Md5(Md5Helper.Md5(str));
+
+            //string yan = "@!~#$%^&$$@&";
+            //string time = DateTime.Now.ToString("yyyyMMddHHmmssfffff");
+            //string guid = Guid.NewGuid().ToString("N");
+            //string random = new Random().Next(10000, 99999).ToString();
+            //string nickName = memberVModel.userInfo.NickName;
+            //string str = yan + time + guid + random + nickName;
+            //string token = Md5Helper.Md5(Md5Helper.Md5(str));
+
+            // 使用 JwtBuilder 来生成 token
+            var payload = new Dictionary<string, object>
+            {
+                { "username",memberVModel.userInfo.NickName+ Guid.NewGuid().ToString("N")},
+            };
+            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+            var token = encoder.Encode(payload, secret);
 
             //4、将生成token存入redis
-            // 声明一个链接
-            var conn = ConnectionMultiplexer.Connect("192.168.178.188:6379,password=123456");
-            // 指定操作的数据库
-            var db = conn.GetDatabase(0);
-            //写入数据
-            db.StringSet(token, openid, DateTime.Now.AddDays(7) - DateTime.Now);
-            
+            //// 声明一个链接
+            //var conn = ConnectionMultiplexer.Connect("192.168.178.188:6379,password=123456");
+            //// 指定操作的数据库
+            //var db = conn.GetDatabase(0);
+            ////写入数据
+            //db.StringSet(token, openid, DateTime.Now.AddDays(7) - DateTime.Now);
+
+            RedisHelper.Set(token, openid, DateTime.Now.AddDays(7) - DateTime.Now);
+
             return new ResponsMessage<string>()
             {
                 Code = 200,
                 Data = token
             };
+        }
+
+        [AuthFilter]
+        [Route("api/auth/test")]
+        [HttpGet]
+        public string AuthTest()
+        {
+            return "Auth OK";
         }
     }
 }
