@@ -23,8 +23,14 @@ namespace API.Models
         string secret = ConfigurationManager.AppSettings["JWTSecret"].ToString();
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            var token = actionContext.Request.Headers.GetValues("Authorization")?.First();
+            //var token = actionContext.Request.Headers.GetValues("Authorization")?.First();
 
+            IEnumerable<string> headValues;
+            string token = null;
+            if (actionContext.Request.Headers.TryGetValues("Authorization",out headValues))
+            {
+                token = headValues.FirstOrDefault();
+            }
             if (token != null)
             {
 
