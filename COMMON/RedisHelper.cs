@@ -11,7 +11,7 @@ namespace COMMON
     {
         static ConnectionMultiplexer conn = ConnectionMultiplexer.Connect("192.168.178.188:6379,password=123456");
         static IDatabase db = conn.GetDatabase(0);
-        public static void Set(string key,string value,TimeSpan timeSpan)
+        public static void Set(string key,int value,TimeSpan timeSpan)
         {
             db.StringSet(key, value, timeSpan);
         }

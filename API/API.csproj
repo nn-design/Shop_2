@@ -211,6 +211,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductCategoryController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -220,6 +221,7 @@
     </Compile>
     <Compile Include="Models\AuthFilterAttribute.cs" />
     <Compile Include="Models\MemberVModel.cs" />
+    <Compile Include="Models\OrderVModel.cs" />
     <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\ProductCategoryVModel.cs" />
     <Compile Include="Models\ResponsMessage.cs" />

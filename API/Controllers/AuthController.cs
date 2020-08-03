@@ -74,6 +74,7 @@ namespace API.Controllers
                 member = memberVModel.userInfo;
                 member.OpenId = openid;
                 Bll.Add(member);
+                
             }
             // 3、生成token（最常用两种方式：md5,jwt）
 
@@ -103,8 +104,15 @@ namespace API.Controllers
             //var db = conn.GetDatabase(0);
             ////写入数据
             //db.StringSet(token, openid, DateTime.Now.AddDays(7) - DateTime.Now);
-
-            RedisHelper.Set(token, openid, DateTime.Now.AddDays(7) - DateTime.Now);
+            if (list.Count != 0)
+            {
+                RedisHelper.Set(token, list[0].ID, DateTime.Now.AddDays(7) - DateTime.Now);
+            }
+            else
+            {
+                RedisHelper.Set(token, memberVModel.userInfo.ID, DateTime.Now.AddDays(7) - DateTime.Now);
+            }
+           
 
             return new ResponsMessage<string>()
             {
