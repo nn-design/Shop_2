@@ -17,30 +17,30 @@ namespace BLL
         IOrderDetailDAL orderDetailDAL = new OrderDetailDAL();
 
 
-        public  int Add(Order order, OrderDetail orderDetail)
+        public  int Add(Order order, List<OrderDetail> orderDetail)
         {
             int result = 0;
             var tran = dal.BeginTran();
             try
             {
-                order.CreatTime = DateTime.Now;
-                order.State = "未支付";
-                order.OrderNum = DateTime.Now.ToString("yyyyMMddHHmmssfffff") + new Random().Next(10000, 99999).ToString();
+                //Order表插入值
                 orderDAL.Add(order);
                 result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
-
-                orderDetail.OrderID = order.ID;
-                orderDetailDAL.Add(orderDetail);
+                
+                //OrderDetail表插入值
+                foreach (var item in orderDetail)
+                {
+                    item.OrderID = order.ID;
+                    orderDetailDAL.Add(item);
+                }
                 result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
 
                 tran.Commit();//总提交
             }
             catch (Exception)
             {
-
                 tran.Rollback();
             }
-
             return result;
         }
     }

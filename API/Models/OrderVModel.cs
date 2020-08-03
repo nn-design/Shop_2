@@ -9,6 +9,6 @@ namespace API.Models
     public class OrderVModel
     {
         public Order order { get; set; }
-        public OrderDetail OrderDetail { get; set; }
+        public List<OrderDetail> OrderDetail { get; set; }
     }
 }

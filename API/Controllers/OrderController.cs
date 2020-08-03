@@ -32,19 +32,20 @@ namespace API.Controllers
             {
                 token = headValues.FirstOrDefault();
             }
-            //Order表插入值
             Order order = new Order();
             order = OrderVModel.order;
             order.MemberID = int.Parse(RedisHelper.Get(token));
-
-            //OrderDetail表插入值
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail = OrderVModel.OrderDetail;
-            Bll.Add(order, orderDetail);
+            order.CreatTime = DateTime.Now;
+            order.State = "未支付";
+            order.OrderNum = DateTime.Now.ToString("yyyyMMddHHmmssfffff") + new Random().Next(10000, 99999).ToString();
+            
+            Bll.Add(order, OrderVModel.OrderDetail);
 
             return new ResponsMessage<string>()
             {
-                Code = 200
+                Code = 200,
+                Message = "请求成功",
+                Data = "OK"
             };
 
         }

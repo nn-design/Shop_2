@@ -9,6 +9,6 @@ namespace IBLL
 {
     public interface IOrderBLL :IBaseBLL<Order>
     {
-        int Add(Order order, OrderDetail orderDetail);
+        int Add(Order order, List<OrderDetail> orderDetail);
     }
 }
