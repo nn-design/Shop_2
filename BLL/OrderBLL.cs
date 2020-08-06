@@ -15,7 +15,8 @@ namespace BLL
 
         IOrderDAL orderDAL = new OrderDAL();
         IOrderDetailDAL orderDetailDAL = new OrderDetailDAL();
-
+        List<ProductSku> skuList = new List<ProductSku>();
+        IProductSkuDAL skuDAL = new ProductSkuDAL();
 
         public  int Add(Order order, List<OrderDetail> orderDetail)
         {
@@ -32,6 +33,12 @@ namespace BLL
                 {
                     item.OrderID = order.ID;
                     orderDetailDAL.Add(item);
+                    //添加订单详情的时候修改剩余库存
+                    skuList = skuDAL.Search(x => x.ID == item.SkuID);
+                    ProductSku sku = new ProductSku();
+                    sku = skuList[0];
+                    sku.Stock = skuList[0].Stock - item.Stock;
+                    skuDAL.Update(sku);
                 }
                 result += SaveChange();//相当于预提交，  默认情况下，调用SaveChange会开启一个事务
 

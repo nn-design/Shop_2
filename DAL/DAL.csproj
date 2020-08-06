@@ -49,6 +49,7 @@
     <Compile Include="DBContextFactory.cs" />
     <Compile Include="AdminDAL.cs" />
     <Compile Include="MemberDAL.cs" />
+    <Compile Include="NumberDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderDetailDAL.cs" />
     <Compile Include="ProductAttrDAL.cs" />

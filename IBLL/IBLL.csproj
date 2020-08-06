@@ -51,6 +51,7 @@
     <Compile Include="IBaseBLL.cs" />
     <Compile Include="IAdminBLL.cs" />
     <Compile Include="IMemberBLL.cs" />
+    <Compile Include="INumberBLL.cs" />
     <Compile Include="IOrderBLL.cs" />
     <Compile Include="IOrderDetailBLL.cs" />
     <Compile Include="IProductAttrKeyBLL.cs" />

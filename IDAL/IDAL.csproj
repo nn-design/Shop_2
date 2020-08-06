@@ -51,6 +51,7 @@
     <Compile Include="IBaseDAL.cs" />
     <Compile Include="IAdminDAL.cs" />
     <Compile Include="IMemberDAL.cs" />
+    <Compile Include="INumberDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IOrderDetailDAL.cs" />
     <Compile Include="IProductAttrDAL.cs" />

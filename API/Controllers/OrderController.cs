@@ -14,6 +14,7 @@ namespace API.Controllers
 {
     public class OrderController : ApiController
     {
+        INumberBLL numberBLL = new NumberBLL();
         public IOrderBLL Bll
         {
             get
@@ -21,7 +22,7 @@ namespace API.Controllers
                 return new OrderBLL();
             }
         }
-
+        
         [Route("api/Order/GetOrder")]
         [HttpPost]
         public ResponsMessage<string> GetOrder(OrderVModel OrderVModel)
@@ -37,7 +38,7 @@ namespace API.Controllers
             order.MemberID = int.Parse(RedisHelper.Get(token));
             order.CreatTime = DateTime.Now;
             order.State = "未支付";
-            order.OrderNum = DateTime.Now.ToString("yyyyMMddHHmmssfffff") + new Random().Next(10000, 99999).ToString();
+            order.OrderNum = numberBLL.CreateNumber(1);
             
             Bll.Add(order, OrderVModel.OrderDetail);
 

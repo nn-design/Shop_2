@@ -12,13 +12,10 @@ namespace MODEL
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderDetail:BaseModel
+    public partial class Number:BaseModel
     {
         
-        public Nullable<int> OrderID { get; set; }
-        public Nullable<int> ProductID { get; set; }
-        public Nullable<int> Stock { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<int> SkuID { get; set; }
+        public Nullable<int> Type { get; set; }
+        public Nullable<int> CurrentNumber { get; set; }
     }
 }
