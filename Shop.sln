@@ -27,6 +27,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMODEL", "VMODEL\VMODEL.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B3B0E5C9-03E6-4E9C-BE2B-3077A64FD51C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebForm", "WebForm", "{B4B3D1B9-1ED4-4F4D-A192-BBC27B250F6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsDemo1", "WebFormsDemo1\WebFormsDemo1.csproj", "{E136B78B-4953-4D4C-BE48-EC122F1429A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FAB14BF4-EA09-4145-B0B0-B95A1605CEC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,9 +87,16 @@ Global
 		{B3B0E5C9-03E6-4E9C-BE2B-3077A64FD51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3B0E5C9-03E6-4E9C-BE2B-3077A64FD51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3B0E5C9-03E6-4E9C-BE2B-3077A64FD51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E136B78B-4953-4D4C-BE48-EC122F1429A8} = {B4B3D1B9-1ED4-4F4D-A192-BBC27B250F6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03587739-E814-425B-92B9-AFB8698CE672}

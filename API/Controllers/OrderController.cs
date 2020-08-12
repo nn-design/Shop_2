@@ -25,6 +25,7 @@ namespace API.Controllers
         
         [Route("api/Order/GetOrder")]
         [HttpPost]
+        [AuthFilter]
         public ResponsMessage<string> GetOrder(OrderVModel OrderVModel)
         {
             IEnumerable<string> headValues;

@@ -124,7 +124,7 @@ namespace API.Controllers
 
             string token, refreshToken;
             CreateToken(uid.ToString(), out token, out refreshToken);
-            DateTime expire = DateTime.Now.AddDays(7);
+            DateTime expire = DateTime.Now.AddMinutes(1);
             DateTime now = DateTime.Now;
 
             //使用 md5 来生成 token
@@ -147,7 +147,7 @@ namespace API.Controllers
 
             //refreshToken的过期时间要比token长，一般是两倍
             RedisHelper.Set(token, uid.ToString(), expire - now);
-            RedisHelper.Set(refreshToken, uid.ToString(), expire.AddDays(7) - now);
+            RedisHelper.Set(refreshToken, uid.ToString(), expire.AddMinutes(6) - now);
 
             //5 返回token
             return new ResponsMessage<TokenVModel>()
