@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{CE01C30F-C6A3-4BFB-8F8D-5E92F08EB560}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsDemo1", "WebFormsDemo1\WebFormsDemo1.csproj", "{E136B78B-4953-4D4C-BE48-EC122F1429A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FAB14BF4-EA09-4145-B0B0-B95A1605CEC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreWebDemo1", "CoreWebDemo1\CoreWebDemo1.csproj", "{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,12 +93,17 @@ Global
 		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E136B78B-4953-4D4C-BE48-EC122F1429A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E136B78B-4953-4D4C-BE48-EC122F1429A8} = {B4B3D1B9-1ED4-4F4D-A192-BBC27B250F6B}
+		{90AB8A2F-02A5-4C34-9C48-DEEA8BFD3A5C} = {FAB14BF4-EA09-4145-B0B0-B95A1605CEC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03587739-E814-425B-92B9-AFB8698CE672}

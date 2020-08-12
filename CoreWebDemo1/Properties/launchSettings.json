@@ -1,0 +1,13 @@
+﻿{
+  
+  "profiles": {
+    "CoreWebDemo1": {
+      "commandName": "Project",
+      "launchBrowser": true,//是否打开浏览器
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",//设置其他端口号
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
