@@ -13,6 +13,18 @@ namespace BLL
 {
     public class ProductCategoryBLL: BaseBLL<ProductCategory, ProductCategoryDAL>, IProductCategoryBLL
     {
+        //依赖注入核心思想（控制反转）：将创建具体对象的控制权移交给专门负责创建具体对象的容器（ioc容器）
+        //IProductCategoryDAL _categoryDAL;
+        //public ProductCategoryBLL(IProductCategoryDAL categoryDAL) 
+        //{
+        //    _categoryDAL = categoryDAL;
+        //}
+
+        //当一个类包含一个具体的类时会发生依赖耦合关系，ProductCategoryBLL和ProductCategoryDAL时强依赖关系
+        //ProductCategoryDAL categoryDAL = new ProductCategoryDAL();
+
+        //尽量依赖于抽象而不是依赖于具体实现
+
         public override int Add(ProductCategory model)
         {
             //model.CreateTime = DateTime.Now;

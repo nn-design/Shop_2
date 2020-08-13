@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreWebDemo1.Service;
+using CoreWebDemo1.ServiceImpl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +20,17 @@ namespace CoreWebDemo1
         {
             //依赖注入
             services.AddControllersWithViews();//注册mvc服务
+
+            //注册一个ICarService，将ICarService和CarServiceImpl映射关系注册到IOC容器中
+
+            //Transient(每次注入都会创建新的实例)
+            services.AddTransient<ICarService, CarServiceImpl>();
+
+            //Scoped一个(请求内只创建一个实例)
+            //services.AddScoped<ICarService, CarServiceImpl>();
+
+            //Singleton(在应用程序的整个生命周期只会创建一次)
+            //services.AddSingleton<ICarService, CarServiceImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
