@@ -173,11 +173,12 @@
                 { "data": "OrderNum" },
                 {
                     "data": function (data) {
-                        //var image = (eval('({"Url":"http://localhost:56568/Upload/Product/CategoryImages/7a0de0069ed4403cadb3cdf581e2f7ad836386.jpg","CloudUrl":"http://myshop.products.nmzyy.cn//Upload/Product/CategoryImages/7a0de0069ed4403cadb3cdf581e2f7ad836386.jpg"})'))
+                        //console.log(data.Img)
+                        //var image = (eval('(data.Img)'))
                         //console.log(image.Url)
                         //console.log(image.CloudUrl)
                         console.log(data.Img)
-                        var html = "<img src=\"" + data.Img + "\" width=\"50\" height=\"50\" /> ";
+                        var html = "<img src=\"" + JSON.parse(data.Img).Url + "\" width=\"50\" height=\"50\" /> ";
                         return html;
                     }
                 },

@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreWebDemo1.DB;
 using CoreWebDemo1.Service;
 using CoreWebDemo1.ServiceImpl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,12 +17,23 @@ namespace CoreWebDemo1
 {
     public class Startup
     {
+        public IConfiguration Configuration { get;}
+        public Startup(IConfiguration configuration) 
+        {
+            Configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             //依赖注入
             services.AddControllersWithViews();//注册mvc服务
+
+            services.AddDbContext<ShopContext>(options =>
+            {
+                var connectionString = Configuration["Connection:ConnectionString"];
+                options.UseMySql("ConnectionString");
+            });
 
             //注册一个ICarService，将ICarService和CarServiceImpl映射关系注册到IOC容器中
 
@@ -31,6 +45,7 @@ namespace CoreWebDemo1
 
             //Singleton(在应用程序的整个生命周期只会创建一次)
             //services.AddSingleton<ICarService, CarServiceImpl>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

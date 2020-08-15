@@ -101,10 +101,12 @@
 
 @section js{
 
-<script>
-        //@Html.Raw(@Model.Category.Img)
+    <script>
 
-        var Img='@Model.Category.Img';
+
+        //var Img='@Model.Category.Img';
+        var Img=@Html.Raw(@Model.Category.Img)
+
         var PID =@Model.Category.PID;
 
         function disTreeSelect() {
@@ -168,11 +170,11 @@
 
 
             $("#PID").select2('val', '@Model.Category.PID')//下拉框显示值
-           
+
             @*var temp = eval("(" +@Html.Raw(@Model.Category.Img)+")")
             console.log(temp)
             console.log('@Html.Raw(@Model.Category.Img)')*@
-            //设置上传插件
+            <!--//设置上传插件
             $('#Img').fileinput({
                 language: 'zh',//设置语言
                 allpwedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],//接收的文件后缀
@@ -185,7 +187,7 @@
 
                 //fileinput图片回显
                 initialPreview: [
-                    "<img src='@Model.Category.Img' class='file - preview - image' width=100>"
+                    "<img src='"+Img.Url+"' class='file - preview - image' width=100>"
                 ]
             });
             //图片上传成功的回调函数
@@ -235,7 +237,7 @@
                 formData.append("PID", PID)
                 formData.append("OrderNum", $("#OrderNum").val())
                 //formData.append("file", $("#Img")[0].files[0])
-                formData.append("Img",Img)
+                formData.append("Img", JSON.stringify(Img))
                 formData.append("KeyWords", $("#KeyWords").val())
 
                 $.ajax({
@@ -273,7 +275,7 @@
                 })
             })
         })
-</script>
+    </script>-->
 
 
 }
